@@ -23,11 +23,7 @@ body{
     box-shadow:0 0 30px rgba(0,0,0,.6);
 }
 
-.player h2{
-    color:#1DB954;
-    margin-bottom:20px;
-}
-
+ 
 #cover{
     width:250px;
     height:250px;

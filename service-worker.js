@@ -1,4 +1,4 @@
-const CACHE_NAME = "music-player-v6";
+const CACHE_NAME = "music-player-v7";
 
 const CACHE_FILES = [
     "./",
@@ -26,12 +26,17 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
 
+    if (event.request.method !== "GET") return;
+
     event.respondWith(
-        caches.match(event.request)
-        .then(response => {
+        caches.match(event.request).then(response => {
+            if (response) {
+                return response;
+            }
 
-            return response || fetch(event.request);
-
+            return fetch(event.request).catch(() => {
+                return caches.match("./index.html");
+            });
         })
     );
 
