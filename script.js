@@ -137,16 +137,23 @@ function createPlaylist() {
 createPlaylist();
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("./service-worker.js")
-      .then(() => {
-        console.log("Offline mode enabled");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+
+    window.addEventListener("load", () => {
+
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(() => {
+
+                console.log("Offline mode enabled");
+
+            })
+            .catch(err => {
+
+                console.log("Service Worker Error:", err);
+
+            });
+
+    });
+
 }
 
 audio.addEventListener("ended", () => {
