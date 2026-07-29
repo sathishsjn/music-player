@@ -7,8 +7,7 @@ const CACHE_FILES = [
     "./script.js",
     "./manifest.json",
 
-    "./icons/icon-192.png",
-    "./icons/icon-512.png",
+    "./icons/music-logo.png",
 
     "./images/cover1.jpg",
     "./images/cover2.jpg",
