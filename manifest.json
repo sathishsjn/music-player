@@ -1,7 +1,8 @@
 {
-  "name": "AI Music Player",
+  "id": "/music-player/",
+  "name": "Music Player",
   "short_name": "Music",
-  "description": "Offline AI Music Player",
+  "description": "Music Player",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
