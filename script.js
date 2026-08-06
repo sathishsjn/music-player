@@ -1,19 +1,23 @@
-const songs = [
-  {
-    title: "Melody Song",
-    artist: "Anirudh Ravichandiran",
-    src: "songs/song1.mp3",
-    cover: "images/cover1.jpg",
-  },
-  {
-    title: "Therukural",
-    artist: "Arivu",
-    src: "songs/song2.mp3",
-    cover: "images/cover2.jpg",
-  },
-];
-
+let songs = [];
 let currentSong = 0;
+
+async function loadSongs() {
+    try {
+        const response = await fetch("data/songs.json");
+
+        songs = await response.json();
+
+        loadSong(currentSong);
+
+        createPlaylist();
+
+        console.log("Songs loaded successfully");
+    } catch (error) {
+        console.error("Error loading songs:", error);
+    }
+}
+
+
 
 const audio = document.getElementById("audio");
 const cover = document.getElementById("cover");
@@ -28,13 +32,13 @@ const current = document.getElementById("current");
 const duration = document.getElementById("duration");
 
 function loadSong(index) {
-  audio.src = songs[index].src;
+  audio.src = songs[index].song;
   cover.src = songs[index].cover;
   title.textContent = songs[index].title;
   artist.textContent = songs[index].artist;
 }
 
-loadSong(currentSong);
+ 
 
 let isPlaying = false;
 
@@ -136,6 +140,44 @@ function createPlaylist() {
 
 createPlaylist();
 
+function loadTrendingSongs() {
+
+    const container = document.getElementById("trendingSongs");
+
+    container.innerHTML = "";
+
+    songs.forEach((song, index) => {
+
+        container.innerHTML += `
+
+        <div class="song-card" onclick="playTrending(${index})">
+
+            <img src="${song.cover}" alt="${song.title}">
+
+            <h3>${song.title}</h3>
+
+            <p>${song.artist}</p>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+loadTrendingSongs();
+
+function playTrending(index){
+
+    currentSong = index;
+
+    loadSong(currentSong);
+
+    playSong();
+
+}
+
 if ("serviceWorker" in navigator) {
 
     window.addEventListener("load", () => {
@@ -166,3 +208,5 @@ audio.addEventListener("ended", () => {
   loadSong(currentSong);
   playSong();
 });
+
+loadSongs();

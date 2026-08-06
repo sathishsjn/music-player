@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "Hukum",
+    "artist": "Anirudh Ravichander",
+    "cover": "assets/images/cover1.jpg",
+    "song": "assets/songs/song1.mp3",
+    "category": "Mass"
+  },
+  {
+    "id": 2,
+    "title": "Adiye",
+    "artist": "G. V. Prakash",
+    "cover": "assets/images/cover2.jpg",
+    "song": "assets/songs/song2.mp3",
+    "category": "Melody"
+  }
+]

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Upload Song</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+  <div class="upload-container">
+
+    <h1>🎵 Upload Your Song</h1>
+
+
+    <form id="uploadForm">
+
+
+      <label>
+        Song Name
+      </label>
+
+      <input type="text" id="songName" placeholder="Enter song name" required>
+
+
+
+      <label>
+        Artist Name
+      </label>
+
+      <input type="text" id="artistName" placeholder="Enter artist name" required>
+
+
+
+      <label>
+        Album Cover
+      </label>
+
+      <input type="file" id="coverImage" accept="image/*" required>
+
+
+
+      <label>
+        Select Song (.mp3)
+      </label>
+
+      <input type="file" id="songFile" accept="audio/mp3" required>
+
+
+
+      <button type="submit">
+
+        ⬆ Upload Song
+
+      </button>
+
+
+    </form>
+
+
+    <p id="status"></p>
+
+
+  </div>
+
+
+
+  <script src="upload.js"></script>
+  <script type="module" src="firebase.js"></script>
+<script type="module" src="app.js"></script>
+
+
+</body>
+
+</html>

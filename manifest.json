@@ -12,17 +12,14 @@
 
   "icons": [
     {
-      "src": "icons/music-logo.png",
+      "src": "assets/icons/music-logo.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "icons/music-logo2.png",
-      "sizes": "512×512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    } 
-
+      "src": "assets/icons/music-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }

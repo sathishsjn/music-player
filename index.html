@@ -1,63 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
-
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/icons/music-logo.png" type="image/png">
 
-    <link rel="icon" href="icons/music-logo.png" type="image/png">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
 
-<div class="player">
+    <header class="navbar">
+        <div class="logo">
+            🎵 <span>Music Player</span>
+        </div>
 
+        <div class="search-box">
+            <input type="text" placeholder="Search songs..." id="search">
+        </div>
+    </header>
 
+    <section class="hero">
 
-    <img id="cover" src="images/cover1.jpg" alt="Album Cover">
+        <div class="hero-left">
 
-    <h3 id="title">Melody Song</h3>
-    <p id="artist">Anirudh Ravichandiran</p>
+            <h1>
+                Feel Every Beat 🎵
+            </h1>
 
-    <audio id="audio"></audio>
+            <p>
+                Stream unlimited Tamil, English, Melody, Mass and Trending songs with a beautiful music experience.
+            </p>
 
-    <input type="range" id="progress" value="0">
+            <div class="hero-buttons">
+                <button class="play-btn">▶ Play Now</button>
+                <button class="browse-btn">Browse Songs</button>
+            </div>
 
-    <div class="time">
-        <span id="current">0:00</span>
-        <span id="duration">0:00</span>
-    </div>
+        </div>
 
-    <div class="controls">
+        <div class="hero-right">
 
-        <button id="prev">
-            <i class="fa-solid fa-backward"></i>
-        </button>
+            <img src="assets/images/cover8.jpg" alt="Album Cover">
 
-        <button id="play">
-            <i class="fa-solid fa-play"></i>
-        </button>
+        </div>
 
-        <button id="next">
-            <i class="fa-solid fa-forward"></i>
-        </button>
+    </section>
 
-    </div>
+    <section class="categories">
 
-    <h3>Playlist</h3>
+        <h2>🎼 Browse Categories</h2>
 
-    <ul id="playlist"></ul>
+        <div class="category-grid">
 
-</div>
+            <div class="category-card">
+                <span>🎵</span>
+                <h3>Tamil Hits</h3>
+            </div>
 
-<script src="script.js"></script>
+            <div class="category-card">
+                <span>❤️</span>
+                <h3>Love Songs</h3>
+            </div>
+
+            <div class="category-card">
+                <span>🎧</span>
+                <h3>Melody</h3>
+            </div>
+
+            <div class="category-card">
+                <span>🔥</span>
+                <h3>Mass Songs</h3>
+            </div>
+
+            <div class="category-card">
+                <span>🚗</span>
+                <h3>Travel</h3>
+            </div>
+
+            <div class="category-card">
+                <span>🎤</span>
+                <h3>Rap</h3>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="trending">
+
+        <h2>🔥 Trending Songs</h2>
+
+        <div class="song-grid">
+
+            <div class="song-card">
+                <img src="assets/images/cover4.jpg" alt="">
+                <h3>Hukum</h3>
+                <p>Anirudh Ravichander</p>
+                <button>▶ Play</button>
+            </div>
+
+            <div class="song-card">
+                <img src="assets/images/cover5.jpg" alt="">
+                <h3>Adiye</h3>
+                <p>G. V. Prakash</p>
+                <button>▶ Play</button>
+            </div>
+
+            <div class="song-card">
+                <img src="assets/images/cover6.jpg" alt="">
+                <h3>Arabic Kuthu</h3>
+                <p>Anirudh Ravichander</p>
+                <button>▶ Play</button>
+            </div>
+
+            <div class="song-card">
+                <img src="assets/images/cover7.jpg" alt="">
+                <h3>Vaathi Coming</h3>
+                <p>Anirudh Ravichander</p>
+                <button>▶ Play</button>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="featured">
+
+        <div class="featured-text">
+
+            <h2>🎧 Featured Album</h2>
+
+            <h1>Leo - Original Soundtrack</h1>
+
+            <p>
+                Feel the power of Anirudh's blockbuster soundtrack with high quality audio.
+            </p>
+
+            <button class="listen-btn">▶ Listen Now</button>
+
+        </div>
+
+        <div class="featured-image">
+
+            <img src="assets/images/cover3.jpg" alt="Featured Album">
+
+        </div>
+
+    </section>
+
+    <section class="artists">
+
+        <h2>🎤 Top Artists</h2>
+
+        <div class="artist-grid">
+
+            <div class="artist-card">
+                <a href="upload.html">
+                <img src="assets/images/aniruth.jpg" alt="Anirudh">
+                </a>
+                <h3>Anirudh</h3>
+            </div>
+
+            <div class="artist-card">
+                <img src="assets/images/ar.jpg" alt="A.R. Rahman">
+                <h3>A.R. Rahman</h3>
+            </div>
+
+            <div class="artist-card">
+                <img src="assets/images/u1.jpg" alt="Yuvan">
+                <h3>Yuvan</h3>
+            </div>
+
+            <div class="artist-card">
+                <img src="assets/images/gvp.jpg" alt="G.V. Prakash">
+                <h3>G.V. Prakash</h3>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="recently-played">
+
+        <h2>🕒 Recently Played</h2>
+
+        <div class="recent-grid">
+
+            <div class="recent-card">
+                <img src="assets/images/cover4.jpg" alt="">
+                <h3>Hukum</h3>
+                <p>Anirudh Ravichander</p>
+            </div>
+
+            <div class="recent-card">
+                <img src="assets/images/cover5.jpg" alt="">
+                <h3>Adiye</h3>
+                <p>G. V. Prakash</p>
+            </div>
+
+            <div class="recent-card">
+                <img src="assets/images/cover3.jpg" alt="">
+                <h3>Leo Theme</h3>
+                <p>Anirudh Ravichander</p>
+            </div>
+
+            <div class="recent-card">
+                <img src="assets/images/cover6.jpg" alt="">
+                <h3>Arabic Kuthu</h3>
+                <p>Anirudh Ravichander</p>
+            </div>
+
+        </div>
+
+    </section>
+
+ 
 
 </body>
+<script src="script.js"></script>
+
 </html>
