@@ -1,217 +1,137 @@
+ 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player</title>
-    <link rel="stylesheet" href="style.css">
 
-    <link rel="icon" href="assets/icons/music-logo.png" type="image/png">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#09090d"
+    >
+
+    <title>Music Player</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 
 </head>
 
+
 <body>
 
+
+    <!-- =================================
+         NAVBAR
+    ================================== -->
+
     <header class="navbar">
+
         <div class="logo">
-            🎵 <span>Music Player</span>
+
+            <div class="logo-icon">
+                <i class="fa-solid fa-music"></i>
+            </div>
+
+            <span>Music Player</span>
+
         </div>
 
+
         <div class="search-box">
-            <input type="text" placeholder="Search songs..." id="search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="search"
+                placeholder="Search songs..."
+                autocomplete="off"
+            >
+
         </div>
+
+
+        <a
+            href="upload.html"
+            class="upload-btn"
+        >
+
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+
+            <span>Upload</span>
+
+        </a>
+
     </header>
+
+
+
+    <!-- =================================
+         HERO
+    ================================== -->
 
     <section class="hero">
 
-        <div class="hero-left">
+        <div class="hero-content">
+
+            <span class="hero-tag">
+                YOUR MUSIC • YOUR MOOD
+            </span>
+
 
             <h1>
-                Feel Every Beat 🎵
+                Feel Every
+                <span>Beat.</span>
             </h1>
 
-            <p>
-                Stream unlimited Tamil, English, Melody, Mass and Trending songs with a beautiful music experience.
-            </p>
-
-            <div class="hero-buttons">
-                <button class="play-btn">▶ Play Now</button>
-                <button class="browse-btn">Browse Songs</button>
-            </div>
-
-        </div>
-
-        <div class="hero-right">
-
-            <img src="assets/images/cover8.jpg" alt="Album Cover">
-
-        </div>
-
-    </section>
-
-    <section class="categories">
-
-        <h2>🎼 Browse Categories</h2>
-
-        <div class="category-grid">
-
-            <div class="category-card">
-                <span>🎵</span>
-                <h3>Tamil Hits</h3>
-            </div>
-
-            <div class="category-card">
-                <span>❤️</span>
-                <h3>Love Songs</h3>
-            </div>
-
-            <div class="category-card">
-                <span>🎧</span>
-                <h3>Melody</h3>
-            </div>
-
-            <div class="category-card">
-                <span>🔥</span>
-                <h3>Mass Songs</h3>
-            </div>
-
-            <div class="category-card">
-                <span>🚗</span>
-                <h3>Travel</h3>
-            </div>
-
-            <div class="category-card">
-                <span>🎤</span>
-                <h3>Rap</h3>
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="trending">
-
-        <h2>🔥 Trending Songs</h2>
-
-        <div class="song-grid">
-
-            <div class="song-card">
-                <img src="assets/images/cover4.jpg" alt="">
-                <h3>Hukum</h3>
-                <p>Anirudh Ravichander</p>
-                <button>▶ Play</button>
-            </div>
-
-            <div class="song-card">
-                <img src="assets/images/cover5.jpg" alt="">
-                <h3>Adiye</h3>
-                <p>G. V. Prakash</p>
-                <button>▶ Play</button>
-            </div>
-
-            <div class="song-card">
-                <img src="assets/images/cover6.jpg" alt="">
-                <h3>Arabic Kuthu</h3>
-                <p>Anirudh Ravichander</p>
-                <button>▶ Play</button>
-            </div>
-
-            <div class="song-card">
-                <img src="assets/images/cover7.jpg" alt="">
-                <h3>Vaathi Coming</h3>
-                <p>Anirudh Ravichander</p>
-                <button>▶ Play</button>
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="featured">
-
-        <div class="featured-text">
-
-            <h2>🎧 Featured Album</h2>
-
-            <h1>Leo - Original Soundtrack</h1>
 
             <p>
-                Feel the power of Anirudh's blockbuster soundtrack with high quality audio.
+                Listen to your favorite songs anytime,
+                anywhere with a simple and beautiful
+                music experience.
             </p>
 
-            <button class="listen-btn">▶ Listen Now</button>
+
+            <button
+                class="hero-play"
+                id="heroPlay"
+            >
+
+                <i class="fa-solid fa-play"></i>
+
+                <span>Play Music</span>
+
+            </button>
 
         </div>
 
-        <div class="featured-image">
 
-            <img src="assets/images/cover3.jpg" alt="Featured Album">
+        <div class="hero-art">
 
-        </div>
+            <div class="vinyl">
 
-    </section>
+                <div class="vinyl-line"></div>
 
-    <section class="artists">
+                <div class="vinyl-center">
 
-        <h2>🎤 Top Artists</h2>
+                    <i class="fa-solid fa-music"></i>
 
-        <div class="artist-grid">
+                </div>
 
-            <div class="artist-card">
-                <a href="upload.html">
-                <img src="assets/images/aniruth.jpg" alt="Anirudh">
-                </a>
-                <h3>Anirudh</h3>
-            </div>
-
-            <div class="artist-card">
-                <img src="assets/images/ar.jpg" alt="A.R. Rahman">
-                <h3>A.R. Rahman</h3>
-            </div>
-
-            <div class="artist-card">
-                <img src="assets/images/u1.jpg" alt="Yuvan">
-                <h3>Yuvan</h3>
-            </div>
-
-            <div class="artist-card">
-                <img src="assets/images/gvp.jpg" alt="G.V. Prakash">
-                <h3>G.V. Prakash</h3>
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="recently-played">
-
-        <h2>🕒 Recently Played</h2>
-
-        <div class="recent-grid">
-
-            <div class="recent-card">
-                <img src="assets/images/cover4.jpg" alt="">
-                <h3>Hukum</h3>
-                <p>Anirudh Ravichander</p>
-            </div>
-
-            <div class="recent-card">
-                <img src="assets/images/cover5.jpg" alt="">
-                <h3>Adiye</h3>
-                <p>G. V. Prakash</p>
-            </div>
-
-            <div class="recent-card">
-                <img src="assets/images/cover3.jpg" alt="">
-                <h3>Leo Theme</h3>
-                <p>Anirudh Ravichander</p>
-            </div>
-
-            <div class="recent-card">
-                <img src="assets/images/cover6.jpg" alt="">
-                <h3>Arabic Kuthu</h3>
-                <p>Anirudh Ravichander</p>
             </div>
 
         </div>
@@ -219,8 +139,279 @@
     </section>
 
 
+
+    <!-- =================================
+         MAIN CONTENT
+    ================================== -->
+
+    <main>
+
+
+        <!-- =================================
+             TRENDING SONGS
+        ================================== -->
+
+        <section class="songs-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>LISTEN NOW</span>
+
+                    <h2>
+                        🔥 Trending Songs
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="song-grid"
+                id="songGrid"
+            >
+
+                <div class="loading">
+
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+
+                    <span>Loading songs...</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             MUSIC PLAYER
+        ================================== -->
+
+        <section class="player-section">
+
+            <div class="player">
+
+
+                <!-- Current Song -->
+
+                <div class="player-song">
+
+                    <img
+                        id="cover"
+                        src="assets/images/cover8.jpg"
+                        alt="Song Cover"
+                    >
+
+
+                    <div class="song-details">
+
+                        <h3 id="title">
+                            Select a song
+                        </h3>
+
+                        <p id="artist">
+                            Unknown Artist
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Controls -->
+
+                <div class="player-controls">
+
+                    <button
+                        id="prev"
+                        aria-label="Previous song"
+                    >
+
+                        <i class="fa-solid fa-backward-step"></i>
+
+                    </button>
+
+
+                    <button
+                        id="play"
+                        class="main-play"
+                        aria-label="Play or pause"
+                    >
+
+                        <i
+                            id="playIcon"
+                            class="fa-solid fa-play"
+                        ></i>
+
+                    </button>
+
+
+                    <button
+                        id="next"
+                        aria-label="Next song"
+                    >
+
+                        <i class="fa-solid fa-forward-step"></i>
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- Progress -->
+
+                <div class="progress-area">
+
+                    <span id="current">
+                        0:00
+                    </span>
+
+
+                    <input
+                        type="range"
+                        id="progress"
+                        min="0"
+                        max="100"
+                        value="0"
+                        step="0.1"
+                    >
+
+
+                    <span id="duration">
+                        0:00
+                    </span>
+
+                </div>
+
+
+                <audio id="audio"></audio>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             PLAYLIST
+        ================================== -->
+
+        <section class="playlist-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>YOUR LIBRARY</span>
+
+                    <h2>
+                        🎵 Playlist
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <ul
+                id="playlist"
+                class="playlist"
+            ></ul>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =================================
+         FOOTER
+    ================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+
+            <div class="footer-brand">
+
+                <div class="footer-logo">
+
+                    <div class="footer-logo-icon">
+
+                        <i class="fa-solid fa-music"></i>
+
+                    </div>
+
+                    <span>
+                        Music Player
+                    </span>
+
+                </div>
+
+
+                <p>
+                    Your music. Your mood.
+                    Your moments.
+                </p>
+
+            </div>
+
+
+
+            <div class="footer-divider"></div>
+
+
+
+            <div class="footer-credit">
+
+                <span>
+                    Designed & Developed by
+                </span>
+
+                <strong>
+                    SATHISH S
+                </strong>
+
+            </div>
+
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 Music Player
+                </span>
+
+                <span class="footer-dot">
+                    •
+                </span>
+
+                <span>
+                    Made with 🎵
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================== -->
+
+    <script src="script.js"></script>
 
 </body>
-<script src="script.js"></script>
 
 </html>
+

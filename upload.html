@@ -1,14 +1,27 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-  <title>Upload Song</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-  <link rel="stylesheet" href="style.css">
+    <title>Upload Song | Music Player</title>
+
+    <link
+        rel="stylesheet"
+        href="upload.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 
 </head>
 
@@ -16,68 +29,376 @@
 <body>
 
 
-  <div class="upload-container">
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
-    <h1>🎵 Upload Your Song</h1>
+    <header class="navbar">
 
+        <a
+            href="index.html"
+            class="logo"
+        >
 
-    <form id="uploadForm">
+            <i class="fa-solid fa-music"></i>
 
+            <span>Music Player</span>
 
-      <label>
-        Song Name
-      </label>
-
-      <input type="text" id="songName" placeholder="Enter song name" required>
-
-
-
-      <label>
-        Artist Name
-      </label>
-
-      <input type="text" id="artistName" placeholder="Enter artist name" required>
+        </a>
 
 
+        <a
+            href="index.html"
+            class="back-btn"
+        >
 
-      <label>
-        Album Cover
-      </label>
+            <i class="fa-solid fa-arrow-left"></i>
 
-      <input type="file" id="coverImage" accept="image/*" required>
+            <span>Back</span>
 
+        </a>
 
-
-      <label>
-        Select Song (.mp3)
-      </label>
-
-      <input type="file" id="songFile" accept="audio/mp3" required>
+    </header>
 
 
 
-      <button type="submit">
+    <!-- =========================
+         MAIN
+    ========================== -->
 
-        ⬆ Upload Song
-
-      </button>
-
-
-    </form>
+    <main class="upload-page">
 
 
-    <p id="status"></p>
+        <!-- HEADER -->
+
+        <section class="page-heading">
+
+            <div class="heading-icon">
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+            </div>
 
 
-  </div>
+            <div>
+
+                <span>
+                    YOUR MUSIC LIBRARY
+                </span>
+
+                <h1>
+                    Upload Song
+                </h1>
+
+                <p>
+                    Add your favorite music to your personal library.
+                </p>
+
+            </div>
+
+        </section>
 
 
 
-  <script src="upload.js"></script>
-  <script type="module" src="firebase.js"></script>
-<script type="module" src="app.js"></script>
+        <!-- =========================
+             UPLOAD CARD
+        ========================== -->
 
+        <section class="upload-card">
+
+
+            <form id="uploadForm">
+
+
+                <!-- SONG TITLE -->
+
+                <div class="input-group">
+
+                    <label for="title">
+                        <i class="fa-solid fa-heading"></i>
+                        Song Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Enter song title"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- ARTIST -->
+
+                <div class="input-group">
+
+                    <label for="artist">
+                        <i class="fa-solid fa-microphone"></i>
+                        Artist
+                    </label>
+
+                    <input
+                        type="text"
+                        id="artist"
+                        placeholder="Enter artist name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- ALBUM -->
+
+                <div class="input-group">
+
+                    <label for="album">
+                        <i class="fa-solid fa-compact-disc"></i>
+                        Album
+                    </label>
+
+                    <input
+                        type="text"
+                        id="album"
+                        placeholder="Enter album name"
+                    >
+
+                </div>
+
+
+
+                <!-- DURATION -->
+
+                <div class="input-group">
+
+                    <label for="duration">
+                        <i class="fa-solid fa-clock"></i>
+                        Duration
+                    </label>
+
+                    <input
+                        type="text"
+                        id="duration"
+                        placeholder="Example: 03:45"
+                    >
+
+                </div>
+
+
+
+                <!-- FILES -->
+
+                <div class="file-section">
+
+
+                    <!-- SONG -->
+
+                    <div class="file-box">
+
+                        <div class="file-icon">
+
+                            <i class="fa-solid fa-music"></i>
+
+                        </div>
+
+
+                        <div class="file-content">
+
+                            <h3>
+                                MP3 Song
+                            </h3>
+
+                            <p id="songName">
+                                Choose an MP3 file
+                            </p>
+
+                        </div>
+
+
+                        <label
+                            for="song"
+                            class="choose-btn"
+                        >
+
+                            Choose
+
+                        </label>
+
+
+                        <input
+                            type="file"
+                            id="song"
+                            accept=".mp3,audio/mpeg"
+                            hidden
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- COVER -->
+
+                    <div class="file-box">
+
+                        <div class="file-icon cover-icon">
+
+                            <i class="fa-solid fa-image"></i>
+
+                        </div>
+
+
+                        <div class="file-content">
+
+                            <h3>
+                                Cover Image
+                            </h3>
+
+                            <p id="coverName">
+                                Optional album cover
+                            </p>
+
+                        </div>
+
+
+                        <label
+                            for="cover"
+                            class="choose-btn"
+                        >
+
+                            Choose
+
+                        </label>
+
+
+                        <input
+                            type="file"
+                            id="cover"
+                            accept="image/*"
+                            hidden
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- PREVIEW -->
+
+                <div
+                    id="preview"
+                    class="preview"
+                >
+
+                    <img
+                        id="previewImage"
+                        src="assets/images/cover8.jpg"
+                        alt="Cover Preview"
+                    >
+
+                    <div>
+
+                        <span>
+                            PREVIEW
+                        </span>
+
+                        <h3 id="previewTitle">
+                            Your Song
+                        </h3>
+
+                        <p id="previewArtist">
+                            Artist Name
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    id="message"
+                    class="message"
+                ></div>
+
+
+
+                <!-- UPLOAD BUTTON -->
+
+                <button
+                    type="submit"
+                    class="upload-submit"
+                    id="uploadBtn"
+                >
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                    <span>
+                        Upload Song
+                    </span>
+
+                </button>
+
+
+            </form>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-logo">
+
+            <i class="fa-solid fa-music"></i>
+
+            <span>
+                Music Player
+            </span>
+
+        </div>
+
+
+        <p>
+            Your music. Your mood. Your beat.
+        </p>
+
+
+        <div class="footer-line"></div>
+
+
+        <p class="copyright">
+
+            © 2026 Music Player
+
+            <span>•</span>
+
+            Designed & Developed by
+            <strong>SATHISH S</strong>
+
+        </p>
+
+    </footer>
+
+
+
+    <script src="upload.js"></script>
 
 </body>
 
 </html>
+
