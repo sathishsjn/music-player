@@ -12,6 +12,8 @@ let isPlaying = false;
 
 const API_URL = "https://music-player-0qp9.onrender.com";
 
+
+
 // =====================================
 // ELEMENTS
 // =====================================
