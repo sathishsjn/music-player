@@ -6,6 +6,7 @@ require("dotenv").config();
 const db = require("./config/db");
 const songRoutes = require("./routes/songs");
 const uploadRoutes = require("./routes/upload");
+const fileRoutes = require("./routes/files");
 
 const app = express();
 
@@ -36,6 +37,13 @@ app.use("/api/songs", songRoutes);
 // =========================
 
 app.use("/api/upload", uploadRoutes);
+
+// =========================
+// r3 new Route
+// =========================
+
+app.use("/api/files", fileRoutes);
+
 
 // =========================
 // Home Route

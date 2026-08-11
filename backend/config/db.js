@@ -1,23 +1,7 @@
-const mysql = require("mysql2");
+const { neon } = require("@neondatabase/serverless");
 
-const pool = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "12345",
-    database: "music_player",
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+const sql = neon(process.env.DATABASE_URL);
 
-pool.getConnection((err, connection) => {
-    if (err) {
-        console.error("❌ MySQL Connection Failed:", err.message);
-        return;
-    }
+console.log("✅ Neon Serverless Database Ready");
 
-    console.log("✅ MySQL Connected Successfully");
-    connection.release();
-});
-
-module.exports = pool.promise();
+module.exports = sql;

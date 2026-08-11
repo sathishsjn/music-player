@@ -4,10 +4,8 @@ const db = require("../config/db");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-
     try {
-
-        const [rows] = await db.query(`
+        const rows = await db`
             SELECT
                 id,
                 title,
@@ -18,7 +16,7 @@ router.get("/", async (req, res) => {
                 duration
             FROM songs
             ORDER BY id DESC
-        `);
+        `;
 
         res.json({
             status: "success",
@@ -27,7 +25,6 @@ router.get("/", async (req, res) => {
         });
 
     } catch (error) {
-
         console.error("Songs Error:", error);
 
         res.status(500).json({

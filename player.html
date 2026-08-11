@@ -1,145 +1,77 @@
- 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Now Playing | Music Player</title>
-
-    <link
-        rel="stylesheet"
-        href="player.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
-
+    <link rel="stylesheet" href="player.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
-
 <body>
-
 
     <!-- =========================
          NAVBAR
     ========================== -->
 
     <header class="navbar">
-
-        <a
-            href="index.html"
-            class="logo"
-        >
-
+        <a href="index.html" class="logo">
             <i class="fa-solid fa-music"></i>
-
             <span>Music Player</span>
-
         </a>
 
-
-        <a
-            href="index.html"
-            class="back-btn"
-        >
-
+        <a href="index.html" class="back-btn">
             <i class="fa-solid fa-arrow-left"></i>
-
             <span>Home</span>
-
         </a>
 
     </header>
-
-
 
     <!-- =========================
          PLAYER PAGE
     ========================== -->
 
     <main class="player-page">
-
-
         <section class="player-card">
-
 
             <!-- NOW PLAYING -->
 
             <div class="now-playing">
-
                 <span>
                     NOW PLAYING
                 </span>
-
             </div>
-
-
 
             <!-- ALBUM ART -->
 
             <div class="album-container">
-
                 <div class="album-glow"></div>
-
-                <img
-                    id="cover"
-                    src="assets/images/cover8.jpg"
-                    alt="Album Cover"
-                    class="album-cover"
-                >
-
+                <img id="cover" src="assets/images/cover8.jpg" alt="Album Cover" class="album-cover">
             </div>
-
-
 
             <!-- SONG DETAILS -->
 
             <div class="song-info">
-
                 <h1 id="title">
                     Melody Song
                 </h1>
-
                 <p id="artist">
                     Anirudh Ravichander
                 </p>
-
             </div>
-
-
 
             <!-- AUDIO -->
 
             <audio id="audio"></audio>
 
-
-
             <!-- PROGRESS -->
 
             <div class="progress-container">
-
                 <span id="current">
                     0:00
                 </span>
 
-
-                <input
-                    type="range"
-                    id="progress"
-                    value="0"
-                    min="0"
-                    step="0.1"
-                >
-
+                <input type="range" id="progress" value="0" min="0" step="0.1">
 
                 <span id="duration">
                     0:00
@@ -147,47 +79,21 @@
 
             </div>
 
-
-
             <!-- CONTROLS -->
 
             <div class="controls">
-
-                <button
-                    id="prev"
-                    aria-label="Previous Song"
-                >
-
-                    <i
-                        class="fa-solid fa-backward-step"
-                    ></i>
-
+                <button id="prev" aria-label="Previous Song">
+                    <i class="fa-solid fa-backward-step"></i>
                 </button>
 
 
-                <button
-                    id="play"
-                    class="main-play"
-                    aria-label="Play Song"
-                >
-
-                    <i
-                        id="playIcon"
-                        class="fa-solid fa-play"
-                    ></i>
-
+                <button id="play" class="main-play" aria-label="Play Song">
+                    <i id="playIcon" class="fa-solid fa-play"></i>
                 </button>
 
 
-                <button
-                    id="next"
-                    aria-label="Next Song"
-                >
-
-                    <i
-                        class="fa-solid fa-forward-step"
-                    ></i>
-
+                <button id="next" aria-label="Next Song">
+                    <i class="fa-solid fa-forward-step"></i>
                 </button>
 
             </div>
@@ -197,11 +103,8 @@
             <!-- PLAYLIST -->
 
             <section class="playlist-section">
-
                 <div class="playlist-heading">
-
                     <div>
-
                         <span>
                             YOUR MUSIC
                         </span>
@@ -220,10 +123,7 @@
                 </div>
 
 
-                <ul
-                    id="playlist"
-                    class="playlist"
-                ></ul>
+                <ul id="playlist" class="playlist"></ul>
 
             </section>
 
@@ -272,11 +172,8 @@
 
     </footer>
 
-
-
     <script src="player.js"></script>
 
 </body>
 
 </html>
-
