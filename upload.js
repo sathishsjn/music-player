@@ -1,412 +1,221 @@
- 
 // =====================================
 // UPLOAD PAGE
 // =====================================
-
 
 // =====================================
 // API
 // =====================================
 
-const API_URL =
-    "http://localhost:5000";
-
+const API_URL = "https://music-player-0qp9.onrender.com";
 
 // =====================================
 // ELEMENTS
 // =====================================
 
-const uploadForm =
-    document.getElementById("uploadForm");
+const uploadForm = document.getElementById("uploadForm");
 
-const message =
-    document.getElementById("message");
+const message = document.getElementById("message");
 
-const uploadBtn =
-    document.getElementById("uploadBtn");
+const uploadBtn = document.getElementById("uploadBtn");
 
-const songInput =
-    document.getElementById("song");
+const songInput = document.getElementById("song");
 
-const coverInput =
-    document.getElementById("cover");
+const coverInput = document.getElementById("cover");
 
-const songName =
-    document.getElementById("songName");
+const songName = document.getElementById("songName");
 
-const coverName =
-    document.getElementById("coverName");
+const coverName = document.getElementById("coverName");
 
-const previewImage =
-    document.getElementById("previewImage");
+const previewImage = document.getElementById("previewImage");
 
-const previewTitle =
-    document.getElementById("previewTitle");
+const previewTitle = document.getElementById("previewTitle");
 
-const previewArtist =
-    document.getElementById("previewArtist");
-
+const previewArtist = document.getElementById("previewArtist");
 
 // =====================================
 // SONG FILE SELECT
 // =====================================
 
 if (songInput) {
+  songInput.addEventListener("change", () => {
+    const file = songInput.files[0];
 
-    songInput.addEventListener(
-        "change",
-        () => {
+    if (!file) {
+      songName.textContent = "Choose an MP3 file";
 
-            const file =
-                songInput.files[0];
+      return;
+    }
 
+    // Check MP3
 
-            if (!file) {
+    if (
+      file.type !== "audio/mpeg" &&
+      !file.name.toLowerCase().endsWith(".mp3")
+    ) {
+      songName.textContent = "❌ Please select MP3";
 
-                songName.textContent =
-                    "Choose an MP3 file";
+      songInput.value = "";
 
-                return;
+      return;
+    }
 
-            }
-
-
-            // Check MP3
-
-            if (
-                file.type !==
-                    "audio/mpeg" &&
-                !file.name
-                    .toLowerCase()
-                    .endsWith(".mp3")
-            ) {
-
-                songName.textContent =
-                    "❌ Please select MP3";
-
-                songInput.value = "";
-
-                return;
-
-            }
-
-
-            songName.textContent =
-                file.name;
-
-        }
-    );
-
+    songName.textContent = file.name;
+  });
 }
-
 
 // =====================================
 // COVER FILE SELECT
 // =====================================
 
 if (coverInput) {
+  coverInput.addEventListener("change", () => {
+    const file = coverInput.files[0];
 
-    coverInput.addEventListener(
-        "change",
-        () => {
+    if (!file) {
+      coverName.textContent = "Optional album cover";
 
-            const file =
-                coverInput.files[0];
+      return;
+    }
 
+    if (!file.type.startsWith("image/")) {
+      coverName.textContent = "❌ Invalid image";
 
-            if (!file) {
+      coverInput.value = "";
 
-                coverName.textContent =
-                    "Optional album cover";
+      return;
+    }
 
-                return;
+    coverName.textContent = file.name;
 
-            }
+    // Image preview
 
+    const reader = new FileReader();
 
-            if (
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
+    reader.onload = (event) => {
+      if (previewImage) {
+        previewImage.src = event.target.result;
+      }
+    };
 
-                coverName.textContent =
-                    "❌ Invalid image";
-
-                coverInput.value = "";
-
-                return;
-
-            }
-
-
-            coverName.textContent =
-                file.name;
-
-
-            // Image preview
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                (event) => {
-
-                    if (previewImage) {
-
-                        previewImage.src =
-                            event.target.result;
-
-                    }
-
-                };
-
-
-            reader.readAsDataURL(file);
-
-        }
-    );
-
+    reader.readAsDataURL(file);
+  });
 }
-
 
 // =====================================
 // TITLE PREVIEW
 // =====================================
 
-const titleInput =
-    document.getElementById("title");
-
+const titleInput = document.getElementById("title");
 
 if (titleInput) {
-
-    titleInput.addEventListener(
-        "input",
-        () => {
-
-            previewTitle.textContent =
-                titleInput.value ||
-                "Your Song";
-
-        }
-    );
-
+  titleInput.addEventListener("input", () => {
+    previewTitle.textContent = titleInput.value || "Your Song";
+  });
 }
-
 
 // =====================================
 // ARTIST PREVIEW
 // =====================================
 
-const artistInput =
-    document.getElementById("artist");
-
+const artistInput = document.getElementById("artist");
 
 if (artistInput) {
-
-    artistInput.addEventListener(
-        "input",
-        () => {
-
-            previewArtist.textContent =
-                artistInput.value ||
-                "Artist Name";
-
-        }
-    );
-
+  artistInput.addEventListener("input", () => {
+    previewArtist.textContent = artistInput.value || "Artist Name";
+  });
 }
-
 
 // =====================================
 // MESSAGE
 // =====================================
 
-function showMessage(
-    text,
-    type
-) {
+function showMessage(text, type) {
+  if (!message) return;
 
-    if (!message) return;
+  message.textContent = text;
 
-
-    message.textContent =
-        text;
-
-
-    message.className =
-        "message " + type;
-
+  message.className = "message " + type;
 }
-
 
 // =====================================
 // UPLOAD
 // =====================================
 
 if (uploadForm) {
+  uploadForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-    uploadForm.addEventListener(
-        "submit",
-        async (event) => {
+    // =================================
+    // GET VALUES
+    // =================================
 
-            event.preventDefault();
+    const title = document.getElementById("title").value.trim();
 
+    const artist = document.getElementById("artist").value.trim();
 
-            // =================================
-            // GET VALUES
-            // =================================
+    const album = document.getElementById("album").value.trim();
 
-            const title =
-                document
-                    .getElementById("title")
-                    .value
-                    .trim();
+    const duration = document.getElementById("duration").value.trim();
 
+    const songFile = songInput.files[0];
 
-            const artist =
-                document
-                    .getElementById("artist")
-                    .value
-                    .trim();
+    const coverFile = coverInput.files[0];
 
+    // =================================
+    // VALIDATION
+    // =================================
 
-            const album =
-                document
-                    .getElementById("album")
-                    .value
-                    .trim();
+    if (!title) {
+      showMessage("❌ Please enter song title", "error");
 
+      return;
+    }
 
-            const duration =
-                document
-                    .getElementById("duration")
-                    .value
-                    .trim();
+    if (!artist) {
+      showMessage("❌ Please enter artist name", "error");
 
+      return;
+    }
 
-            const songFile =
-                songInput.files[0];
+    if (!songFile) {
+      showMessage("❌ Please select an MP3 song", "error");
 
+      return;
+    }
 
-            const coverFile =
-                coverInput.files[0];
+    if (!songFile.name.toLowerCase().endsWith(".mp3")) {
+      showMessage("❌ Only MP3 files are allowed", "error");
 
+      return;
+    }
 
-            // =================================
-            // VALIDATION
-            // =================================
+    // =================================
+    // FORM DATA
+    // =================================
 
-            if (!title) {
+    const formData = new FormData();
 
-                showMessage(
-                    "❌ Please enter song title",
-                    "error"
-                );
+    formData.append("title", title);
 
-                return;
+    formData.append("artist", artist);
 
-            }
+    formData.append("album", album);
 
+    formData.append("duration", duration);
 
-            if (!artist) {
+    formData.append("song", songFile);
 
-                showMessage(
-                    "❌ Please enter artist name",
-                    "error"
-                );
+    if (coverFile) {
+      formData.append("cover", coverFile);
+    }
 
-                return;
+    // =================================
+    // BUTTON LOADING
+    // =================================
 
-            }
+    uploadBtn.disabled = true;
 
-
-            if (!songFile) {
-
-                showMessage(
-                    "❌ Please select an MP3 song",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (
-                !songFile.name
-                    .toLowerCase()
-                    .endsWith(".mp3")
-            ) {
-
-                showMessage(
-                    "❌ Only MP3 files are allowed",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            // =================================
-            // FORM DATA
-            // =================================
-
-            const formData =
-                new FormData();
-
-
-            formData.append(
-                "title",
-                title
-            );
-
-
-            formData.append(
-                "artist",
-                artist
-            );
-
-
-            formData.append(
-                "album",
-                album
-            );
-
-
-            formData.append(
-                "duration",
-                duration
-            );
-
-
-            formData.append(
-                "song",
-                songFile
-            );
-
-
-            if (coverFile) {
-
-                formData.append(
-                    "cover",
-                    coverFile
-                );
-
-            }
-
-
-            // =================================
-            // BUTTON LOADING
-            // =================================
-
-            uploadBtn.disabled =
-                true;
-
-
-            uploadBtn.innerHTML = `
+    uploadBtn.innerHTML = `
 
                 <i class="fa-solid fa-spinner fa-spin"></i>
 
@@ -416,91 +225,51 @@ if (uploadForm) {
 
             `;
 
+    showMessage("⏳ Uploading your song...", "");
 
-            showMessage(
-                "⏳ Uploading your song...",
-                ""
-            );
+    // =================================
+    // SEND TO BACKEND
+    // =================================
 
+    try {
+      const response = await fetch(`${API_URL}/api/upload`, {
+        method: "POST",
+        body: formData,
+      });
 
-            // =================================
-            // SEND TO BACKEND
-            // =================================
+      const data = await response.json();
 
-            try {
+      console.log("Upload response:", data);
 
-                const response =
-                    await fetch(
-                        `${API_URL}/api/upload`,
-                        {
-                            method: "POST",
-                            body: formData
-                        }
-                    );
+      if (!response.ok) {
+        throw new Error(data.message || "Upload failed");
+      }
 
+      // =================================
+      // SUCCESS
+      // =================================
 
-                const data =
-                    await response.json();
+      showMessage("✅ Song uploaded successfully! 🎵", "success");
 
+      uploadForm.reset();
 
-                console.log(
-                    "Upload response:",
-                    data
-                );
+      songName.textContent = "Choose an MP3 file";
 
+      coverName.textContent = "Optional album cover";
 
-                if (!response.ok) {
+      previewImage.src = "assets/images/cover8.jpg";
 
-                    throw new Error(
-                        data.message ||
-                        "Upload failed"
-                    );
+      previewTitle.textContent = "Your Song";
 
-                }
+      previewArtist.textContent = "Artist Name";
 
+      // =================================
+      // RESET BUTTON
+      // =================================
 
-                // =================================
-                // SUCCESS
-                // =================================
+      uploadBtn.disabled = false;
 
-                showMessage(
-                    "✅ Song uploaded successfully! 🎵",
-                    "success"
-                );
-
-
-                uploadForm.reset();
-
-
-                songName.textContent =
-                    "Choose an MP3 file";
-
-
-                coverName.textContent =
-                    "Optional album cover";
-
-
-                previewImage.src =
-                    "assets/images/cover8.jpg";
-
-
-                previewTitle.textContent =
-                    "Your Song";
-
-
-                previewArtist.textContent =
-                    "Artist Name";
-
-
-                // =================================
-                // RESET BUTTON
-                // =================================
-
-                uploadBtn.disabled =
-                    false;
-
-
-                uploadBtn.innerHTML = `
+      uploadBtn.innerHTML = `
 
                     <i class="fa-solid fa-cloud-arrow-up"></i>
 
@@ -510,42 +279,21 @@ if (uploadForm) {
 
                 `;
 
+      // =================================
+      // AUTO REDIRECT
+      // =================================
 
-                // =================================
-                // AUTO REDIRECT
-                // =================================
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1500);
+    } catch (error) {
+      console.error("Upload Error:", error);
 
-                setTimeout(
-                    () => {
+      showMessage("❌ Upload failed: " + error.message, "error");
 
-                        window.location.href =
-                            "index.html";
+      uploadBtn.disabled = false;
 
-                    },
-                    1500
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    "Upload Error:",
-                    error
-                );
-
-
-                showMessage(
-                    "❌ Upload failed: " +
-                    error.message,
-                    "error"
-                );
-
-
-                uploadBtn.disabled =
-                    false;
-
-
-                uploadBtn.innerHTML = `
+      uploadBtn.innerHTML = `
 
                     <i class="fa-solid fa-cloud-arrow-up"></i>
 
@@ -554,11 +302,6 @@ if (uploadForm) {
                     </span>
 
                 `;
-
-            }
-
-        }
-    );
-
+    }
+  });
 }
-

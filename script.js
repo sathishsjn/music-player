@@ -12,8 +12,6 @@ let isPlaying = false;
 
 const API_URL = "https://music-player-0qp9.onrender.com";
 
-
-
 // =====================================
 // ELEMENTS
 // =====================================
@@ -303,40 +301,24 @@ if (playBtn) {
 // =====================================
 
 if (heroPlay) {
+  heroPlay.addEventListener("click", () => {
+    if (!songs.length) {
+      alert("No songs available");
 
-    heroPlay.addEventListener(
-        "click",
-        () => {
+      return;
+    }
 
-            if (!songs.length) {
+    localStorage.setItem("selectedSong", JSON.stringify(songs[0]));
 
-                alert("No songs available");
+    localStorage.setItem("allSongs", JSON.stringify(songs));
 
-                return;
+    localStorage.setItem("currentSongIndex", "0");
 
-            }
-
-            localStorage.setItem(
-                "selectedSong",
-                JSON.stringify(songs[0])
-            );
-
-            localStorage.setItem(
-                "allSongs",
-                JSON.stringify(songs)
-            );
-
-            localStorage.setItem(
-                "currentSongIndex",
-                "0"
-            );
-
-            window.location.href =
-                "player.html";
-
-        }
-    );
-
+    window.location.href =
+      songs[0]?.id !== undefined
+        ? `player.html?id=${encodeURIComponent(songs[0].id)}`
+        : "player.html";
+  });
 }
 
 // =====================================
@@ -573,36 +555,26 @@ function loadTrendingSongs(songList = songs) {
 // =====================================
 
 function playTrending(index) {
+  if (!songs[index]) return;
 
-    if (!songs[index]) return;
+  const song = songs[index];
 
-    const song = songs[index];
+  // Save selected song
+  localStorage.setItem("selectedSong", JSON.stringify(song));
 
-    // Save selected song
-    localStorage.setItem(
-        "selectedSong",
-        JSON.stringify(song)
-    );
+  // Save all songs
+  localStorage.setItem("allSongs", JSON.stringify(songs));
 
-    // Save all songs
-    localStorage.setItem(
-        "allSongs",
-        JSON.stringify(songs)
-    );
+  // Save selected index
+  localStorage.setItem("currentSongIndex", index);
 
-    // Save selected index
-    localStorage.setItem(
-        "currentSongIndex",
-        index
-    );
+  console.log("Opening player:", song);
 
-    console.log(
-        "Opening player:",
-        song
-    );
-
-    // Open player page
-    window.location.href = "player.html";
+  // Open player page
+  window.location.href =
+    song?.id !== undefined
+      ? `player.html?id=${encodeURIComponent(song.id)}`
+      : "player.html";
 }
 
 // =====================================

@@ -168,10 +168,10 @@ router.post(
       // BACKEND FILE URL
       // ===============================
 
-      const audioUrl = `/api/files/audio?key=${encodeURIComponent(songKey)}`;
+      const audioUrl = `/api/files/audio/${encodeURIComponent(songKey)}`;
 
       const coverUrl = coverKey
-        ? `/api/files/cover?key=${encodeURIComponent(coverKey)}`
+        ? `/api/files/cover/${encodeURIComponent(coverKey)}`
         : null;
 
       // ===============================
