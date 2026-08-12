@@ -7,6 +7,7 @@ const db = require("./config/db");
 const songRoutes = require("./routes/songs");
 const uploadRoutes = require("./routes/upload");
 const fileRoutes = require("./routes/files");
+const adminRoutes = require("./routes/admin");
 
 const app = express();
 
@@ -14,6 +15,7 @@ const app = express();
 // Middleware
 // =========================
 
+// CORS: allow any origin (admin panel is public/local) — keep upload/files public too
 app.use(cors());
 app.use(express.json());
 
@@ -21,10 +23,7 @@ app.use(express.json());
 // Static Upload Files
 // =========================
 
-app.use(
-    "/uploads",
-    express.static(path.join(__dirname, "uploads"))
-);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // =========================
 // Songs Route
@@ -44,16 +43,20 @@ app.use("/api/upload", uploadRoutes);
 
 app.use("/api/files", fileRoutes);
 
+// =========================
+// Admin Routes (requires server-side sessions/auth)
+// =========================
+app.use("/api/admin", adminRoutes);
 
 // =========================
 // Home Route
 // =========================
 
 app.get("/", (req, res) => {
-    res.json({
-        status: "success",
-        message: "Music Player Backend Running 🚀"
-    });
+  res.json({
+    status: "success",
+    message: "Music Player Backend Running 🚀",
+  });
 });
 
 // =========================
@@ -61,25 +64,22 @@ app.get("/", (req, res) => {
 // =========================
 
 app.get("/test-db", async (req, res) => {
-    try {
-        const [rows] = await db.query(
-            "SELECT 1 AS test"
-        );
+  try {
+    const [rows] = await db.query("SELECT 1 AS test");
 
-        res.json({
-            status: "success",
-            message: "MySQL Connected 🚀",
-            data: rows
-        });
+    res.json({
+      status: "success",
+      message: "MySQL Connected 🚀",
+      data: rows,
+    });
+  } catch (error) {
+    console.error("MySQL Error:", error);
 
-    } catch (error) {
-        console.error("MySQL Error:", error);
-
-        res.status(500).json({
-            status: "error",
-            message: error.message
-        });
-    }
+    res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
+  }
 });
 
 // =========================
@@ -87,10 +87,10 @@ app.get("/test-db", async (req, res) => {
 // =========================
 
 app.use((req, res) => {
-    res.status(404).json({
-        status: "error",
-        message: "Route Not Found"
-    });
+  res.status(404).json({
+    status: "error",
+    message: "Route Not Found",
+  });
 });
 
 // =========================
@@ -100,7 +100,5 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(
-        `🚀 Server running at http://localhost:${PORT}`
-    );
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

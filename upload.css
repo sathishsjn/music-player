@@ -41,7 +41,8 @@ body {
 
     min-height: 70px;
 
-    padding: 0 6%;
+    /* Ensure navbar content sits below the system status bar / safe area */
+    padding: calc(env(safe-area-inset-top, 0px) + 10px) 6% 0 6%;
 
     display: flex;
 
@@ -98,7 +99,9 @@ body {
 
     text-decoration: none;
 
-    padding: 9px 17px;
+    /* Ensure an accessible touch target (>= 44dp) */
+    padding: 12px 18px;
+    min-height: 44px;
 
     border: 1px solid #292932;
 
@@ -695,7 +698,8 @@ MOBILE
 
 
     .back-btn {
-        padding: 8px 12px;
+        padding: 12px 12px;
+        min-height: 44px;
 
         font-size: 12px;
     }
