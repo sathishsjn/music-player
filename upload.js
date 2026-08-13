@@ -6,7 +6,7 @@
 // API
 // =====================================
 
-const API_URL = "https://music-player-0qp9.onrender.com";
+const API_URL = "http://localhost:5000";
 
 // =====================================
 // ELEMENTS
@@ -46,19 +46,7 @@ if (songInput) {
       return;
     }
 
-    // Check MP3
-
-    if (
-      file.type !== "audio/mpeg" &&
-      !file.name.toLowerCase().endsWith(".mp3")
-    ) {
-      songName.textContent = "❌ Please select MP3";
-
-      songInput.value = "";
-
-      return;
-    }
-
+    // Show selected file name (validation happens on submit)
     songName.textContent = file.name;
   });
 }

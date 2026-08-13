@@ -1,0 +1,353 @@
+/* =====================================
+   SEARCH PAGE
+===================================== */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #09090d;
+  color: #ffffff;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* =====================================
+   NAVBAR
+===================================== */
+
+.search-navbar {
+  grid-template-columns: auto 1fr auto;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 14px 10px 14px;
+}
+
+.search-logo {
+  text-decoration: none;
+  color: #fff;
+}
+
+.search-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #aaaab3;
+  text-decoration: none;
+  padding: 10px 16px;
+  min-height: 40px;
+  border: 1px solid #292932;
+  border-radius: 25px;
+  font-size: 12px;
+  transition: 0.3s;
+}
+
+.search-back-btn:hover {
+  color: white;
+  background: #ff3158;
+  border-color: #ff3158;
+}
+
+/* =====================================
+   SEARCH PAGE
+===================================== */
+
+.search-page {
+  width: calc(100% - 24px);
+  max-width: 850px;
+  margin: 30px auto 80px;
+  box-sizing: border-box;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+.search-header {
+  margin-bottom: 24px;
+}
+
+.search-label {
+  color: #ff3158;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.search-header h1 {
+  font-size: clamp(26px, 6vw, 36px);
+  margin-top: 6px;
+}
+
+/* =====================================
+   SEARCH BOX
+===================================== */
+
+.search-box-large {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  background: #16161d;
+  border: 1px solid #292932;
+  border-radius: 28px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.search-box-large:focus-within {
+  border-color: #ff3158;
+  box-shadow: 0 0 0 3px rgba(255, 49, 88, 0.1);
+}
+
+.search-box-large > i {
+  color: #777780;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.search-box-large input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 15px;
+}
+
+.search-box-large input::placeholder {
+  color: #70707a;
+}
+
+.clear-btn {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: #282831;
+  color: #aaaab3;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.clear-btn:hover {
+  background: #ff3158;
+  color: #fff;
+}
+
+/* =====================================
+   RESULT COUNT
+===================================== */
+
+.result-count {
+  margin: 18px 4px 10px;
+  color: #777780;
+  font-size: 12px;
+}
+
+/* =====================================
+   RESULTS
+===================================== */
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.search-result-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  background: #15151c;
+  border: 1px solid #24242c;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.search-result-card:hover {
+  border-color: #ff3158;
+  background: #1a1a22;
+}
+
+.search-result-card:active {
+  background: #ff3158;
+}
+
+.search-result-card:active .search-result-title,
+.search-result-card:active .search-result-sub {
+  color: #fff;
+}
+
+.search-result-cover {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #222;
+}
+
+.search-result-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-result-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-sub {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #858590;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-play {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #282831;
+  color: #fff;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.search-result-card:hover .search-result-play {
+  background: #ff3158;
+}
+
+/* =====================================
+   NO RESULTS
+===================================== */
+
+.no-results {
+  text-align: center;
+  padding: 50px 20px;
+  color: #888892;
+}
+
+.no-results i {
+  font-size: 40px;
+  color: #3a3a44;
+  margin-bottom: 16px;
+}
+
+.no-results h3 {
+  font-size: 18px;
+  color: #ddd;
+  margin-bottom: 6px;
+}
+
+.no-results p {
+  font-size: 13px;
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 599px) {
+  .search-navbar {
+    padding: calc(env(safe-area-inset-top, 0px) + 8px) 8px 8px 8px;
+    gap: 8px;
+  }
+
+  .search-logo span {
+    display: none;
+  }
+
+  .search-logo .logo-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .search-back-btn {
+    padding: 8px 12px;
+    min-height: 36px;
+    font-size: 11px;
+  }
+
+  .search-back-btn span {
+    display: none;
+  }
+
+  .search-page {
+    width: calc(100% - 20px);
+    margin: 20px auto 70px;
+  }
+
+  .search-box-large {
+    height: 48px;
+    padding: 0 14px;
+    gap: 10px;
+  }
+
+  .search-box-large input {
+    font-size: 14px;
+  }
+
+  .search-result-cover {
+    width: 48px;
+    height: 48px;
+  }
+
+  .search-result-title {
+    font-size: 13px;
+  }
+
+  .search-result-sub {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 360px) {
+  .search-page {
+    width: calc(100% - 16px);
+  }
+
+  .search-result-card {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .search-result-cover {
+    width: 44px;
+    height: 44px;
+  }
+
+  .search-result-play {
+    width: 32px;
+    height: 32px;
+  }
+}

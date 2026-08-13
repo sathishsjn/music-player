@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#09090d">
+    <title>Search | Music Player</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- =================================
+         NAVBAR
+    ================================== -->
+
+    <header class="navbar search-navbar">
+
+        <a href="index.html" class="logo search-logo">
+
+            <div class="logo-icon">
+                <i class="fa-solid fa-music"></i>
+            </div>
+
+            <span>Music Player</span>
+
+        </a>
+
+        <a href="index.html" class="back-btn search-back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back</span>
+        </a>
+
+    </header>
+
+    <!-- =================================
+         SEARCH PAGE
+    ================================== -->
+
+    <main class="search-page">
+
+        <!-- SEARCH HEADER -->
+        <section class="search-header">
+
+            <span class="search-label">FIND YOUR MUSIC</span>
+
+            <h1>Search Songs</h1>
+
+        </section>
+
+        <!-- SEARCH BOX -->
+        <section class="search-box-large">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by title, artist, album..."
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false"
+                aria-label="Search songs"
+            >
+
+            <button type="button" id="clearBtn" class="clear-btn" aria-label="Clear search" hidden>
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </section>
+
+        <!-- RESULT COUNT -->
+        <div class="result-count" id="resultCount" hidden></div>
+
+        <!-- RESULTS -->
+        <section class="search-results" id="searchResults">
+
+            <div class="loading" id="searchLoading">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <span>Loading songs...</span>
+            </div>
+
+        </section>
+
+        <!-- NO RESULTS -->
+        <section class="no-results" id="noResults" hidden>
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <h3>No songs found</h3>
+
+            <p>Try a different search term.</p>
+
+        </section>
+
+    </main>
+
+    <!-- =================================
+         MOBILE BOTTOM NAVIGATION
+    ================================== -->
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+
+        <a href="index.html" class="mobile-nav-item" aria-label="Home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+
+        <a href="search.html" class="mobile-nav-item mobile-nav-center" aria-label="Music">
+            <i class="fa-solid fa-music"></i>
+            <span>Music</span>
+        </a>
+
+        <a href="#" class="mobile-nav-item" aria-label="Profile">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+        </a>
+
+    </nav>
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================== -->
+
+    <script src="search.js"></script>
+
+</body>
+
+</html>

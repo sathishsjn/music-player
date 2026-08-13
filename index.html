@@ -36,15 +36,6 @@
 
         </div>
 
-
-        <a href="admin.html" class="upload-btn">
-
-            <i class="fa-solid fa-user-shield"></i>
-
-            <span>Admin</span>
-
-        </a>
-
     </header>
 
 
@@ -272,74 +263,111 @@
 
     <footer class="footer">
 
-        <div class="footer-content">
+        <div class="footer-wrapper">
 
-
-            <div class="footer-brand">
-
+            <!-- Column 1: Brand -->
+            <div class="footer-column footer-brand-col">
                 <div class="footer-logo">
-
                     <div class="footer-logo-icon">
-
                         <i class="fa-solid fa-music"></i>
-
                     </div>
-
-                    <span>
-                        Music Player
-                    </span>
-
+                    <span>Music Player</span>
                 </div>
-
-
-                <p>
-                    Your music. Your mood.
-                    Your moments.
-                </p>
-
+                <p class="footer-tagline">Your music. Your mood. Your moments.</p>
             </div>
 
-
-
-            <div class="footer-divider"></div>
-
-
-
-            <div class="footer-credit">
-
-                <span>
-                    Designed & Developed by
-                </span>
-
-                <strong>
-                    SATHISH S
-                </strong>
-
+            <!-- Column 2: Music Navigation -->
+            <div class="footer-column footer-nav-col">
+                <h4 class="footer-heading">Music</h4>
+                <ul class="footer-links">
+                    <li><a href="#trending">Trending Songs</a></li>
+                    <li><a href="#playlist">Your Playlist</a></li>
+                    <li><a href="upload.html">Upload Music</a></li>
+                </ul>
             </div>
 
-
-
-            <div class="footer-bottom">
-
-                <span>
-                    © 2026 Music Player
-                </span>
-
-                <span class="footer-dot">
-                    •
-                </span>
-
-                <span>
-                    Made with 🎵
-                </span>
-
+            <!-- Column 3: Support -->
+            <div class="footer-column footer-support-col">
+                <h4 class="footer-heading">Support</h4>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/SathishSJn" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    </li>
+                    <li><a href="#" onclick="alert('Contact: sathishsjn@example.com'); return false;">Contact</a></li>
+                </ul>
             </div>
 
+            <!-- Column 4: Social Media -->
+            <div class="footer-column footer-social-col">
+                <h4 class="footer-heading">Connect</h4>
+                <div class="social-icons">
+                    <a href="https://github.com/SathishSJn" target="_blank" rel="noopener noreferrer"
+                        aria-label="GitHub" class="social-icon">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCG8b2rL5Xwh5LKFMSxL7mQA" target="_blank"
+                        rel="noopener noreferrer" aria-label="YouTube" class="social-icon">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/sathishsj/" target="_blank" rel="noopener noreferrer"
+                        aria-label="LinkedIn" class="social-icon">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.instagram.com/alone_boy_sathish_108/" target="_blank" rel="noopener noreferrer"
+                        aria-label="Instagram" class="social-icon">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Creator Section -->
+        <div class="footer-divider"></div>
+
+        <div class="footer-creator">
+            <div class="creator-text">
+                Devloped <span class="footer-heart">♫</span> by
+                <a href="admin.html" class="creator-name">Sathish</a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <div class="copyright">
+                <span>© 2026 Music Player</span>
+                <span class="separator">•</span>
+                <span>Made with ♫ by Sathish</span>
+            </div>
         </div>
 
     </footer>
 
 
+
+    <!-- =================================
+         MOBILE BOTTOM NAVIGATION
+    ================================== -->
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+
+        <a href="index.html" class="mobile-nav-item" aria-label="Home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+
+        <a href="search.html" class="mobile-nav-item mobile-nav-center" aria-label="Music">
+            <i class="fa-solid fa-music"></i>
+            <span>Music</span>
+        </a>
+
+        <a href="#" class="mobile-nav-item" aria-label="Profile">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+        </a>
+
+    </nav>
 
     <!-- =================================
          JAVASCRIPT

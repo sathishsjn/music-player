@@ -1,99 +1,8 @@
 const express = require("express");
 const db = require("../config/db");
 const { extractKeyFromUrl, deleteObject } = require("../utils/b2-utils");
-// No auth required: admin routes are public for local/simple admin panel
 
 const router = express.Router();
-
-// Admin auth endpoints (no middleware required)
-router.post("/login", async (req, res) => {
-  try {
-    if (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD) {
-      return res
-        .status(500)
-        .json({
-          status: "error",
-          message: "Admin credentials not configured on server",
-        });
-    }
-
-    if (!req.session) {
-      return res
-        .status(500)
-        .json({
-          status: "error",
-          message: "Session support not configured on server",
-        });
-    }
-
-    const { username, password } = req.body || {};
-    if (!username || !password)
-      return res
-        .status(400)
-        .json({ status: "error", message: "Missing credentials" });
-
-    // Constant-time compare is more secure for passwords, but here we do a straightforward check
-    // and avoid logging sensitive values.
-    const valid =
-      username === process.env.ADMIN_USERNAME &&
-      password === process.env.ADMIN_PASSWORD;
-    if (!valid)
-      return res
-        .status(401)
-        .json({ status: "error", message: "Invalid credentials" });
-
-    // Minimal identity in session
-    req.session.isAdmin = true;
-    req.session.username = process.env.ADMIN_USERNAME;
-
-    return res.json({ status: "success", authenticated: true });
-  } catch (err) {
-    console.error("Admin login error:", err);
-    return res.status(500).json({ status: "error", message: "Login error" });
-  }
-});
-
-router.post("/logout", (req, res) => {
-  try {
-    if (!req.session) {
-      return res.json({ status: "success" });
-    }
-
-    req.session.destroy((err) => {
-      if (err) {
-        console.error("Session destroy error:", err);
-        return res
-          .status(500)
-          .json({ status: "error", message: "Failed to destroy session" });
-      }
-
-      // Clear the session cookie
-      res.clearCookie("connect.sid", { path: "/" });
-      return res.json({ status: "success" });
-    });
-  } catch (err) {
-    console.error("Logout error:", err);
-    return res.status(500).json({ status: "error", message: "Logout error" });
-  }
-});
-
-router.get("/me", (req, res) => {
-  try {
-    if (req.session && req.session.isAdmin) {
-      return res.json({
-        authenticated: true,
-        username: req.session.username || process.env.ADMIN_USERNAME,
-      });
-    }
-
-    return res.status(200).json({ authenticated: false });
-  } catch (err) {
-    console.error("Admin me error:", err);
-    return res
-      .status(500)
-      .json({ status: "error", message: "Session check error" });
-  }
-});
 
 // GET /api/admin/summary
 router.get("/summary", async (req, res) => {
@@ -248,7 +157,7 @@ router.delete("/songs/:id", async (req, res) => {
   }
 });
 
-// PUT /api/admin/songs/:id
+// PUT /api/admin/songs/:id (protected)
 // Metadata-only update; file replacement can be added later.
 router.put("/songs/:id", async (req, res) => {
   try {

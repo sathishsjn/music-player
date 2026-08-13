@@ -1,10 +1,8 @@
-// Admin Panel frontend (no auth)
-const API_URL = "https://music-player-0qp9.onrender.com";
+// Admin Panel - Direct Access (No Authentication)
+const API_URL = "http://localhost:5000";
 
 // Elements
 const dashboard = document.getElementById("dashboard");
-const adminIndicator = document.getElementById("admin-indicator");
-
 const totalSongsEl = document.getElementById("total-songs");
 const recentListEl = document.getElementById("recent-list");
 const btnAddSong = document.getElementById("btn-add-song");
@@ -17,8 +15,10 @@ const toastsRoot = document.getElementById("toasts");
 
 let songs = [];
 
-function showDashboard() {
-  dashboard.classList.remove("hidden");
+// Initialize on page load
+function init() {
+  loadSummary();
+  loadSongs();
 }
 
 function showToast(msg, time = 4000) {
@@ -31,23 +31,10 @@ function showToast(msg, time = 4000) {
   }, time);
 }
 
-function handleFetchErrors(res) {
-  if (!res.ok) throw res;
-  return res.json ? res.json() : Promise.resolve();
-}
-
-// No authentication: show dashboard immediately and load data
-showDashboard();
-loadSummary();
-loadSongs();
-
+// Load summary data
 async function loadSummary() {
   try {
     const res = await fetch(`${API_URL}/api/admin/summary`);
-    if (res.status === 401) {
-      showToast("Unauthorized");
-      return;
-    }
     if (!res.ok) {
       showToast("Failed to load summary");
       return;
@@ -65,13 +52,10 @@ async function loadSummary() {
   }
 }
 
+// Load songs list
 async function loadSongs() {
   try {
     const res = await fetch(`${API_URL}/api/admin/songs`);
-    if (res.status === 401) {
-      showToast("Unauthorized");
-      return;
-    }
     if (!res.ok) {
       showToast("Failed to load songs");
       return;
@@ -85,6 +69,7 @@ async function loadSongs() {
   }
 }
 
+// Render songs
 function renderSongs(list) {
   songsContainer.innerHTML = "";
   if (!list || !list.length) {
@@ -138,6 +123,7 @@ function renderSongs(list) {
   });
 }
 
+// Search functionality
 searchInput.addEventListener("input", () => {
   const q = searchInput.value.trim().toLowerCase();
   if (!q) return renderSongs(songs);
@@ -149,6 +135,7 @@ searchInput.addEventListener("input", () => {
   renderSongs(filtered);
 });
 
+// Refresh buttons
 btnRefresh.addEventListener("click", () => {
   loadSummary();
   loadSongs();
@@ -162,7 +149,10 @@ document.getElementById("btn-manage-songs").addEventListener("click", () => {
 });
 btnAddSong.addEventListener("click", () => openAddModal());
 
-// Modals
+// ==========================================
+// MODALS
+// ==========================================
+
 function closeModal() {
   modalRoot.innerHTML = "";
 }
@@ -223,8 +213,6 @@ function openAddModal() {
         closeModal();
         await loadSongs();
         await loadSummary();
-      } else if (res.status === 401) {
-        showToast("Unauthorized");
       } else {
         const p = await res.json().catch(() => ({}));
         document.getElementById("add-error").textContent =
@@ -281,8 +269,6 @@ function openEditModal(song) {
         showToast("Song updated");
         closeModal();
         await loadSongs();
-      } else if (res.status === 401) {
-        showToast("Unauthorized");
       } else {
         const p = await res.json().catch(() => ({}));
         document.getElementById("edit-error").textContent =
@@ -330,8 +316,6 @@ function openDeleteModal(song) {
           closeModal();
           await loadSongs();
           await loadSummary();
-        } else if (res.status === 401) {
-          showToast("Unauthorized");
         } else if (res.status === 404) {
           document.getElementById("delete-error").textContent =
             "Song not found";
@@ -363,4 +347,5 @@ function escapeHtml(str) {
   );
 }
 
-// Initial (no auth) — dashboard already shown and data loaded above
+// Initialize
+init();

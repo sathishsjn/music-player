@@ -15,7 +15,7 @@ const app = express();
 // Middleware
 // =========================
 
-// CORS: allow any origin (admin panel is public/local) — keep upload/files public too
+// CORS: allow any origin
 app.use(cors());
 app.use(express.json());
 
