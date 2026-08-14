@@ -10,7 +10,7 @@ let isPlaying = false;
 // API
 // =====================================
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://music-player-api.onrender.com";
 
 // =====================================
 // ELEMENTS
