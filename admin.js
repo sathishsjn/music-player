@@ -1,5 +1,5 @@
 // Admin Panel - Direct Access (No Authentication)
-const API_URL = "http://localhost:5000";
+const API_URL = "https://music-player-0qp9.onrender.com";
 
 // Elements
 const dashboard = document.getElementById("dashboard");
