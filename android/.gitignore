@@ -99,3 +99,20 @@ app/src/main/assets/public
 app/src/main/assets/capacitor.config.json
 app/src/main/assets/capacitor.plugins.json
 app/src/main/res/xml/config.xml
+
+node_modules/
+backend/node_modules/
+
+backend/.env
+.env
+
+# Android / Gradle
+.gradle/
+**/build/
+
+# Local Android files
+local.properties
+
+# IDE
+.idea/
+*.iml
