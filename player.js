@@ -2,6 +2,8 @@
 // MUSIC PLAYER PAGE
 // =====================================
 
+const MediaSession = window.Capacitor?.Plugins?.MediaSession || null;
+
 const API_URL = "https://music-player-0qp9.onrender.com";
 
 let songs = [];
@@ -257,29 +259,29 @@ function loadSong(index) {
   }
 
   document.title = `${song.title || "Music Player"} | Music Player`;
+}
 
   // =====================================
   // ANDROID MEDIA SESSION
   // =====================================
 
-  if ("mediaSession" in navigator) {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: song.title || "Unknown Song",
-      artist: song.artist || "Unknown Artist",
-      album: "Music Player",
-      artwork: [
-        {
-          src: song.cover_url
-            ? API_URL + song.cover_url
-            : DEFAULT_COVER,
-          sizes: "512x512",
-          type: "image/jpeg"
-        }
-      ]
-    });
-  }
-
-  updateButton();
+  if (MediaSession) {
+  MediaSession.setMetadata({
+    title: song.title || "Unknown Song",
+    artist: song.artist || "Unknown Artist",
+    album: "Music Player",
+    artwork: song.cover_url
+      ? [
+          {
+            src: API_URL + song.cover_url,
+            sizes: "512x512",
+            type: "image/jpeg"
+          }
+        ]
+      : []
+  }).catch(error => {
+    console.error("MediaSession metadata error:", error);
+  });
 }
 
 // =====================================
@@ -294,8 +296,10 @@ async function playSong() {
 
     isPlaying = true;
 
-    if ("mediaSession" in navigator) {
-      navigator.mediaSession.playbackState = "playing";
+    if (MediaSession) {
+      await MediaSession.setPlaybackState({
+        playbackState: "playing"
+      });
     }
 
     updateButton();
@@ -303,18 +307,19 @@ async function playSong() {
     console.error("Play error:", error);
   }
 }
-
 // =====================================
 // PAUSE
 // =====================================
 
-function pauseSong() {
+async function pauseSong() {
   audio.pause();
 
   isPlaying = false;
 
-  if ("mediaSession" in navigator) {
-    navigator.mediaSession.playbackState = "paused";
+  if (MediaSession) {
+    await MediaSession.setPlaybackState({
+      playbackState: "paused"
+    });
   }
 
   updateButton();
@@ -397,26 +402,37 @@ if (prevBtn) {
 }
 
 // =====================================
-// MEDIA SESSION CONTROLS
+// NATIVE MEDIA SESSION CONTROLS
 // =====================================
 
-if ("mediaSession" in navigator) {
+async function setupMediaSession() {
+  if (!MediaSession) return;
 
-  navigator.mediaSession.setActionHandler("play", () => {
-    playSong();
-  });
+  try {
+    await MediaSession.setActionHandler(
+      { action: "play" },
+      () => playSong()
+    );
 
-  navigator.mediaSession.setActionHandler("pause", () => {
-    pauseSong();
-  });
+    await MediaSession.setActionHandler(
+      { action: "pause" },
+      () => pauseSong()
+    );
 
-  navigator.mediaSession.setActionHandler("previoustrack", () => {
-    prevSong();
-  });
+    await MediaSession.setActionHandler(
+      { action: "previoustrack" },
+      () => prevSong()
+    );
 
-  navigator.mediaSession.setActionHandler("nexttrack", () => {
-    nextSong();
-  });
+    await MediaSession.setActionHandler(
+      { action: "nexttrack" },
+      () => nextSong()
+    );
+
+    console.log("Native MediaSession ready");
+  } catch (error) {
+    console.error("MediaSession setup error:", error);
+  }
 }
 
 // =====================================
@@ -426,6 +442,16 @@ if ("mediaSession" in navigator) {
 audio.addEventListener("timeupdate", () => {
   if (!isNaN(audio.duration)) {
     progress.max = audio.duration;
+
+
+    if (MediaSession && audio.duration > 0) {
+  MediaSession.setPositionState({
+    duration: audio.duration,
+    playbackRate: audio.playbackRate || 1,
+    position: audio.currentTime
+  }).catch(() => {});
+}
+
 
     progress.value = audio.currentTime;
 
@@ -512,19 +538,11 @@ function createPlaylist() {
 audio.addEventListener("play", () => {
   isPlaying = true;
 
-  if ("mediaSession" in navigator) {
-    navigator.mediaSession.playbackState = "playing";
-  }
-
   updateButton();
 });
 
 audio.addEventListener("pause", () => {
   isPlaying = false;
-
-  if ("mediaSession" in navigator) {
-    navigator.mediaSession.playbackState = "paused";
-  }
 
   updateButton();
 });
@@ -537,4 +555,6 @@ audio.addEventListener("ended", () => {
 // START
 // =====================================
 
+setupMediaSession();
 loadSongs();
+
