@@ -1,5 +1,9 @@
 {
-  "appId": "com.sathish.musicplayer",
-  "appName": "Music Player",
-  "webDir": "www"
+    "appId": "com.sathish.musicplayer",
+    "appName": "Music Player",
+    "webDir": "www",
+    "server": {
+        "url": "https://sathishsjn.github.io/music-player/",
+        "cleartext": false
+    }
 }

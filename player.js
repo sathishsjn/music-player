@@ -217,7 +217,6 @@ function loadSong(index) {
   const song = songs[index];
 
   // AUDIO
-
   if (audio) {
     if (song.audio_url) {
       audio.src = API_URL + song.audio_url;
@@ -227,25 +226,23 @@ function loadSong(index) {
   }
 
   // COVER
-
   if (cover) {
-    cover.src = song.cover_url ? API_URL + song.cover_url : DEFAULT_COVER;
+    cover.src = song.cover_url
+      ? API_URL + song.cover_url
+      : DEFAULT_COVER;
   }
 
   // TITLE
-
   if (title) {
     title.textContent = song.title || "Unknown Song";
   }
 
   // ARTIST
-
   if (artist) {
     artist.textContent = song.artist || "Unknown Artist";
   }
 
   // RESET
-
   if (progress) {
     progress.value = 0;
     progress.max = 100;
@@ -260,6 +257,27 @@ function loadSong(index) {
   }
 
   document.title = `${song.title || "Music Player"} | Music Player`;
+
+  // =====================================
+  // ANDROID MEDIA SESSION
+  // =====================================
+
+  if ("mediaSession" in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: song.title || "Unknown Song",
+      artist: song.artist || "Unknown Artist",
+      album: "Music Player",
+      artwork: [
+        {
+          src: song.cover_url
+            ? API_URL + song.cover_url
+            : DEFAULT_COVER,
+          sizes: "512x512",
+          type: "image/jpeg"
+        }
+      ]
+    });
+  }
 
   updateButton();
 }
@@ -276,6 +294,10 @@ async function playSong() {
 
     isPlaying = true;
 
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.playbackState = "playing";
+    }
+
     updateButton();
   } catch (error) {
     console.error("Play error:", error);
@@ -290,6 +312,10 @@ function pauseSong() {
   audio.pause();
 
   isPlaying = false;
+
+  if ("mediaSession" in navigator) {
+    navigator.mediaSession.playbackState = "paused";
+  }
 
   updateButton();
 }
@@ -368,6 +394,29 @@ if (nextBtn) {
 
 if (prevBtn) {
   prevBtn.addEventListener("click", prevSong);
+}
+
+// =====================================
+// MEDIA SESSION CONTROLS
+// =====================================
+
+if ("mediaSession" in navigator) {
+
+  navigator.mediaSession.setActionHandler("play", () => {
+    playSong();
+  });
+
+  navigator.mediaSession.setActionHandler("pause", () => {
+    pauseSong();
+  });
+
+  navigator.mediaSession.setActionHandler("previoustrack", () => {
+    prevSong();
+  });
+
+  navigator.mediaSession.setActionHandler("nexttrack", () => {
+    nextSong();
+  });
 }
 
 // =====================================
@@ -463,11 +512,19 @@ function createPlaylist() {
 audio.addEventListener("play", () => {
   isPlaying = true;
 
+  if ("mediaSession" in navigator) {
+    navigator.mediaSession.playbackState = "playing";
+  }
+
   updateButton();
 });
 
 audio.addEventListener("pause", () => {
   isPlaying = false;
+
+  if ("mediaSession" in navigator) {
+    navigator.mediaSession.playbackState = "paused";
+  }
 
   updateButton();
 });
