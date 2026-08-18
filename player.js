@@ -5,9 +5,7 @@
 const API_URL = "https://music-player-0qp9.onrender.com";
 
 let songs = [];
-
 let currentSong = 0;
-
 let isPlaying = false;
 
 // =====================================
@@ -15,29 +13,17 @@ let isPlaying = false;
 // =====================================
 
 const audio = document.getElementById("audio");
-
 const cover = document.getElementById("cover");
-
 const title = document.getElementById("title");
-
 const artist = document.getElementById("artist");
-
 const playBtn = document.getElementById("play");
-
 const playIcon = document.getElementById("playIcon");
-
 const prevBtn = document.getElementById("prev");
-
 const nextBtn = document.getElementById("next");
-
 const progress = document.getElementById("progress");
-
 const current = document.getElementById("current");
-
 const duration = document.getElementById("duration");
-
 const playlist = document.getElementById("playlist");
-
 const songCount = document.getElementById("songCount");
 
 // =====================================
@@ -46,57 +32,76 @@ const songCount = document.getElementById("songCount");
 
 const DEFAULT_COVER = "assets/images/cover8.jpg";
 
+// =====================================
+// MEDIA SESSION PLUGIN
+// =====================================
+
+const MediaSession =
+    window.Capacitor?.Plugins?.MediaSession || null;
+
+// =====================================
+// PARSE LOCAL STORAGE
+// =====================================
+
 function parseSavedItem(key) {
-try {
-return JSON.parse(localStorage.getItem(key));
-} catch {
-return null;
+    try {
+        return JSON.parse(localStorage.getItem(key));
+    } catch {
+        return null;
+    }
 }
-}
+
+// =====================================
+// ERROR
+// =====================================
 
 function showError(message) {
-if (!songCount) return;
+    console.error(message);
 
-if (songGrid) {
-songGrid.innerHTML = <div class="loading"> <i class="fa-solid fa-circle-exclamation"></i> <span>${message}</span> </div> ;
+    if (title) {
+        title.textContent = "Error loading player";
+    }
+
+    if (artist) {
+        artist.textContent = "Please refresh or try again";
+    }
 }
 
-if (title) {
-title.textContent = "Error loading player";
-}
-
-if (artist) {
-artist.textContent = "Please refresh or try again";
-}
-}
+// =====================================
+// GET SAVED SONG
+// =====================================
 
 function getSavedSongIndex() {
-const savedIndex = Number(localStorage.getItem("currentSongIndex"));
+    const savedIndex = Number(
+        localStorage.getItem("currentSongIndex")
+    );
 
-const selectedSong = parseSavedItem("selectedSong");
+    const selectedSong = parseSavedItem("selectedSong");
 
-if (
-Number.isInteger(savedIndex) &&
-savedIndex >= 0 &&
-savedIndex < songs.length &&
-selectedSong &&
-String(songs[savedIndex]?.id) === String(selectedSong.id)
-) {
-return savedIndex;
-}
+    if (
+        Number.isInteger(savedIndex) &&
+        savedIndex >= 0 &&
+        savedIndex < songs.length &&
+        selectedSong &&
+        String(songs[savedIndex]?.id) ===
+            String(selectedSong.id)
+    ) {
+        return savedIndex;
+    }
 
-if (selectedSong && selectedSong.id) {
-const foundIndex = songs.findIndex(
-(song) => String(song.id) === String(selectedSong.id),
-);
+    if (selectedSong && selectedSong.id) {
+        const foundIndex = songs.findIndex(
+            (song) =>
+                String(song.id) ===
+                String(selectedSong.id)
+        );
 
-if (foundIndex !== -1) {
-  return foundIndex;
-}
+        if (foundIndex !== -1) {
+            return foundIndex;
+        }
+    }
 
-}
-
-return -1;
+    return -1;
 }
 
 // =====================================
@@ -104,105 +109,149 @@ return -1;
 // =====================================
 
 async function loadSongs() {
-try {
-const response = await fetch(${API_URL}/api/songs);
+    try {
+        console.log("Loading songs...");
 
-if (!response.ok) {
-  throw new Error(`Failed to load songs (${response.status})`);
-}
+        const response = await fetch(
+            `${API_URL}/api/songs`
+        );
 
-const data = await response.json();
+        if (!response.ok) {
+            throw new Error(
+                `Failed to load songs (${response.status})`
+            );
+        }
 
-songs = data.songs || [];
+        const data = await response.json();
 
-console.log("Player songs:", songs);
+        console.log("Backend response:", data);
 
-if (songCount) {
-  songCount.textContent = `${songs.length} Songs`;
-}
+        songs = data.songs || [];
 
-if (!songs.length) {
-  title.textContent = "No Songs Available";
+        console.log("Player songs:", songs);
 
-  artist.textContent = "Upload a song first";
+        // =================================
+        // SONG COUNT
+        // =================================
 
-  if (audio) {
-    audio.removeAttribute("src");
-  }
+        if (songCount) {
+            songCount.textContent =
+                `${songs.length} Songs`;
+        }
 
-  if (cover) {
-    cover.src = DEFAULT_COVER;
-  }
+        // =================================
+        // NO SONGS
+        // =================================
 
-  createPlaylist();
+        if (!songs.length) {
+            if (title) {
+                title.textContent = "No Songs Available";
+            }
 
-  return;
-}
+            if (artist) {
+                artist.textContent =
+                    "Upload a song first";
+            }
 
-// =================================
-// SELECT SONG FROM URL
-// =================================
+            if (audio) {
+                audio.removeAttribute("src");
+            }
 
-const params = new URLSearchParams(window.location.search);
+            if (cover) {
+                cover.src = DEFAULT_COVER;
+            }
 
-const songId = params.get("id");
+            createPlaylist();
 
-let selectedIndex = -1;
+            return;
+        }
 
-if (songId) {
-  selectedIndex = songs.findIndex(
-    (song) => String(song.id) === String(songId),
-  );
+        // =================================
+        // URL SONG
+        // =================================
 
-  if (selectedIndex === -1) {
-    title.textContent = "Song not found";
+        const params =
+            new URLSearchParams(window.location.search);
 
-    artist.textContent = "Please select a valid song";
+        const songId = params.get("id");
 
-    if (audio) {
-      audio.removeAttribute("src");
+        let selectedIndex = -1;
+
+        if (songId) {
+            selectedIndex = songs.findIndex(
+                (song) =>
+                    String(song.id) ===
+                    String(songId)
+            );
+
+            if (selectedIndex === -1) {
+                if (title) {
+                    title.textContent =
+                        "Song not found";
+                }
+
+                if (artist) {
+                    artist.textContent =
+                        "Please select a valid song";
+                }
+
+                if (audio) {
+                    audio.removeAttribute("src");
+                }
+
+                if (cover) {
+                    cover.src = DEFAULT_COVER;
+                }
+
+                createPlaylist();
+
+                return;
+            }
+        } else {
+            selectedIndex = getSavedSongIndex();
+        }
+
+        // =================================
+        // SELECT CURRENT SONG
+        // =================================
+
+        currentSong =
+            selectedIndex !== -1
+                ? selectedIndex
+                : 0;
+
+        loadSong(currentSong);
+
+        createPlaylist();
+
+    } catch (error) {
+        console.error(
+            "Player error:",
+            error
+        );
+
+        if (title) {
+            title.textContent =
+                "Unable to load songs";
+        }
+
+        if (artist) {
+            artist.textContent =
+                "Please try again later";
+        }
+
+        if (audio) {
+            audio.removeAttribute("src");
+        }
+
+        if (cover) {
+            cover.src = DEFAULT_COVER;
+        }
+
+        showError(
+            "Unable to load songs. Please check your backend."
+        );
     }
-
-    if (cover) {
-      cover.src = DEFAULT_COVER;
-    }
-
-    createPlaylist();
-
-    return;
-  }
-} else {
-  selectedIndex = getSavedSongIndex();
-}
-
-currentSong = selectedIndex !== -1 ? selectedIndex : 0;
-
-loadSong(currentSong);
-
-createPlaylist();
-
-} catch (error) {
-console.error("Player error:", error);
-
-if (title) {
-  title.textContent = "Unable to load songs";
-}
-
-if (artist) {
-  artist.textContent = "Please try again later";
-}
-
-if (audio) {
-  audio.removeAttribute("src");
-}
-
-if (cover) {
-  cover.src = DEFAULT_COVER;
-}
-
-showError("Unable to load songs. Please check your backend.");
-
-}
 }
 
 // =====================================
@@ -210,56 +259,186 @@ showError("Unable to load songs. Please check your backend.");
 // =====================================
 
 function loadSong(index) {
-if (!songs[index]) return;
+    if (!songs[index]) {
+        console.error(
+            "Song not found:",
+            index
+        );
+        return;
+    }
 
-const song = songs[index];
+    const song = songs[index];
 
-// AUDIO
+    console.log(
+        "Loading song:",
+        song
+    );
 
-if (audio) {
-if (song.audio_url) {
-audio.src = API_URL + song.audio_url;
-} else {
-audio.removeAttribute("src");
+    // =================================
+    // AUDIO
+    // =================================
+
+    if (audio) {
+        if (song.audio_url) {
+
+            const audioURL =
+                song.audio_url.startsWith("http")
+                    ? song.audio_url
+                    : API_URL + song.audio_url;
+
+            console.log(
+                "Audio URL:",
+                audioURL
+            );
+
+            audio.src = audioURL;
+
+            audio.load();
+
+        } else {
+            audio.removeAttribute("src");
+        }
+    }
+
+    // =================================
+    // COVER
+    // =================================
+
+    if (cover) {
+
+        if (song.cover_url) {
+
+            cover.src =
+                song.cover_url.startsWith("http")
+                    ? song.cover_url
+                    : API_URL + song.cover_url;
+
+        } else {
+
+            cover.src = DEFAULT_COVER;
+        }
+    }
+
+    // =================================
+    // TITLE
+    // =================================
+
+    if (title) {
+        title.textContent =
+            song.title || "Unknown Song";
+    }
+
+    // =================================
+    // ARTIST
+    // =================================
+
+    if (artist) {
+        artist.textContent =
+            song.artist || "Unknown Artist";
+    }
+
+    // =================================
+    // RESET PROGRESS
+    // =================================
+
+    if (progress) {
+        progress.value = 0;
+        progress.max = 100;
+    }
+
+    if (current) {
+        current.textContent = "0:00";
+    }
+
+    if (duration) {
+        duration.textContent = "0:00";
+    }
+
+    // =================================
+    // PAGE TITLE
+    // =================================
+
+    document.title =
+        `${song.title || "Music Player"} | Music Player`;
+
+    // =================================
+    // SAVE CURRENT SONG
+    // =================================
+
+    localStorage.setItem(
+        "currentSongIndex",
+        currentSong
+    );
+
+    localStorage.setItem(
+        "selectedSong",
+        JSON.stringify(song)
+    );
+
+    // =================================
+    // MEDIA SESSION
+    // =================================
+
+    updateMediaSession(song);
+
+    updateButton();
 }
-}
 
-// COVER
+// =====================================
+// MEDIA SESSION METADATA
+// =====================================
 
-if (cover) {
-cover.src = song.cover_url ? API_URL + song.cover_url : DEFAULT_COVER;
-}
+async function updateMediaSession(song) {
 
-// TITLE
+    if (!MediaSession) {
+        return;
+    }
 
-if (title) {
-title.textContent = song.title || "Unknown Song";
-}
+    try {
 
-// ARTIST
+        let artwork = [];
 
-if (artist) {
-artist.textContent = song.artist || "Unknown Artist";
-}
+        if (song.cover_url) {
 
-// RESET
+            const coverURL =
+                song.cover_url.startsWith("http")
+                    ? song.cover_url
+                    : API_URL + song.cover_url;
 
-if (progress) {
-progress.value = 0;
-progress.max = 100;
-}
+            artwork = [
+                {
+                    src: coverURL,
+                    sizes: "512x512",
+                    type: "image/jpeg"
+                }
+            ];
+        }
 
-if (current) {
-current.textContent = "0:00";
-}
+        await MediaSession.setMetadata({
+            title:
+                song.title ||
+                "Unknown Song",
 
-if (duration) {
-duration.textContent = "0:00";
-}
+            artist:
+                song.artist ||
+                "Unknown Artist",
 
-document.title = ${song.title || "Music Player"} | Music Player;
+            album: "Music Player",
 
-updateButton();
+            artwork: artwork
+        });
+
+        console.log(
+            "MediaSession metadata updated"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "MediaSession metadata error:",
+            error
+        );
+    }
 }
 
 // =====================================
@@ -267,30 +446,67 @@ updateButton();
 // =====================================
 
 async function playSong() {
-if (!songs.length) return;
 
-try {
-await audio.play();
+    if (!songs.length || !audio) {
+        return;
+    }
 
-isPlaying = true;
+    try {
 
-updateButton();
+        await audio.play();
 
-} catch (error) {
-console.error("Play error:", error);
-}
+        isPlaying = true;
+
+        if (MediaSession) {
+
+            await MediaSession.setPlaybackState({
+                playbackState: "playing"
+            });
+        }
+
+        updateButton();
+
+    } catch (error) {
+
+        console.error(
+            "Play error:",
+            error
+        );
+    }
 }
 
 // =====================================
 // PAUSE
 // =====================================
 
-function pauseSong() {
-audio.pause();
+async function pauseSong() {
 
-isPlaying = false;
+    if (!audio) {
+        return;
+    }
 
-updateButton();
+    audio.pause();
+
+    isPlaying = false;
+
+    if (MediaSession) {
+
+        try {
+
+            await MediaSession.setPlaybackState({
+                playbackState: "paused"
+            });
+
+        } catch (error) {
+
+            console.error(
+                "MediaSession pause error:",
+                error
+            );
+        }
+    }
+
+    updateButton();
 }
 
 // =====================================
@@ -298,13 +514,19 @@ updateButton();
 // =====================================
 
 if (playBtn) {
-playBtn.addEventListener("click", () => {
-if (isPlaying) {
-pauseSong();
-} else {
-playSong();
-}
-});
+
+    playBtn.addEventListener(
+        "click",
+        () => {
+
+            if (isPlaying) {
+                pauseSong();
+            } else {
+                playSong();
+            }
+
+        }
+    );
 }
 
 // =====================================
@@ -312,13 +534,21 @@ playSong();
 // =====================================
 
 function updateButton() {
-if (!playIcon) return;
 
-if (isPlaying) {
-playIcon.className = "fa-solid fa-pause";
-} else {
-playIcon.className = "fa-solid fa-play";
-}
+    if (!playIcon) {
+        return;
+    }
+
+    if (isPlaying) {
+
+        playIcon.className =
+            "fa-solid fa-pause";
+
+    } else {
+
+        playIcon.className =
+            "fa-solid fa-play";
+    }
 }
 
 // =====================================
@@ -326,17 +556,20 @@ playIcon.className = "fa-solid fa-play";
 // =====================================
 
 function nextSong() {
-if (!songs.length) return;
 
-currentSong++;
+    if (!songs.length) {
+        return;
+    }
 
-if (currentSong >= songs.length) {
-currentSong = 0;
-}
+    currentSong++;
 
-loadSong(currentSong);
+    if (currentSong >= songs.length) {
+        currentSong = 0;
+    }
 
-playSong();
+    loadSong(currentSong);
+
+    playSong();
 }
 
 // =====================================
@@ -344,66 +577,198 @@ playSong();
 // =====================================
 
 function prevSong() {
-if (!songs.length) return;
 
-currentSong--;
+    if (!songs.length) {
+        return;
+    }
 
-if (currentSong < 0) {
-currentSong = songs.length - 1;
-}
+    currentSong--;
 
-loadSong(currentSong);
+    if (currentSong < 0) {
+        currentSong =
+            songs.length - 1;
+    }
 
-playSong();
+    loadSong(currentSong);
+
+    playSong();
 }
 
 // =====================================
-// BUTTONS
+// NEXT BUTTON
 // =====================================
 
 if (nextBtn) {
-nextBtn.addEventListener("click", nextSong);
+
+    nextBtn.addEventListener(
+        "click",
+        nextSong
+    );
 }
 
+// =====================================
+// PREVIOUS BUTTON
+// =====================================
+
 if (prevBtn) {
-prevBtn.addEventListener("click", prevSong);
+
+    prevBtn.addEventListener(
+        "click",
+        prevSong
+    );
+}
+
+// =====================================
+// MEDIA SESSION CONTROLS
+// =====================================
+
+async function setupMediaSession() {
+
+    if (!MediaSession) {
+
+        console.warn(
+            "MediaSession plugin not available"
+        );
+
+        return;
+    }
+
+    try {
+
+        await MediaSession.setActionHandler(
+            {
+                action: "play"
+            },
+            () => playSong()
+        );
+
+        await MediaSession.setActionHandler(
+            {
+                action: "pause"
+            },
+            () => pauseSong()
+        );
+
+        await MediaSession.setActionHandler(
+            {
+                action: "previoustrack"
+            },
+            () => prevSong()
+        );
+
+        await MediaSession.setActionHandler(
+            {
+                action: "nexttrack"
+            },
+            () => nextSong()
+        );
+
+        console.log(
+            "Native MediaSession ready"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "MediaSession setup error:",
+            error
+        );
+    }
 }
 
 // =====================================
 // TIME UPDATE
 // =====================================
 
-audio.addEventListener("timeupdate", () => {
-if (!isNaN(audio.duration)) {
-progress.max = audio.duration;
+if (audio) {
 
-progress.value = audio.currentTime;
+    audio.addEventListener(
+        "timeupdate",
+        () => {
 
-current.textContent = formatTime(audio.currentTime);
+            if (!isNaN(audio.duration)) {
 
-duration.textContent = formatTime(audio.duration);
+                if (progress) {
 
+                    progress.max =
+                        audio.duration;
+
+                    progress.value =
+                        audio.currentTime;
+                }
+
+                if (current) {
+
+                    current.textContent =
+                        formatTime(
+                            audio.currentTime
+                        );
+                }
+
+                if (duration) {
+
+                    duration.textContent =
+                        formatTime(
+                            audio.duration
+                        );
+                }
+
+                // =========================
+                // MEDIA SESSION POSITION
+                // =========================
+
+                if (
+                    MediaSession &&
+                    audio.duration > 0
+                ) {
+
+                    MediaSession
+                        .setPositionState({
+
+                            duration:
+                                audio.duration,
+
+                            playbackRate:
+                                audio.playbackRate || 1,
+
+                            position:
+                                audio.currentTime
+
+                        })
+                        .catch(() => {});
+                }
+            }
+        }
+    );
 }
-});
 
 // =====================================
 // FORMAT TIME
 // =====================================
 
 function formatTime(time) {
-if (isNaN(time) || time < 0) {
-return "0:00";
-}
 
-const minutes = Math.floor(time / 60);
+    if (
+        isNaN(time) ||
+        time < 0
+    ) {
 
-let seconds = Math.floor(time % 60);
+        return "0:00";
+    }
 
-if (seconds < 10) {
-seconds = "0" + seconds;
-}
+    const minutes =
+        Math.floor(time / 60);
 
-return ${minutes}:${seconds};
+    let seconds =
+        Math.floor(time % 60);
+
+    if (seconds < 10) {
+
+        seconds =
+            "0" + seconds;
+    }
+
+    return `${minutes}:${seconds}`;
 }
 
 // =====================================
@@ -411,9 +776,20 @@ return ${minutes}:${seconds};
 // =====================================
 
 if (progress) {
-progress.addEventListener("input", () => {
-audio.currentTime = Number(progress.value);
-});
+
+    progress.addEventListener(
+        "input",
+        () => {
+
+            if (audio) {
+
+                audio.currentTime =
+                    Number(
+                        progress.value
+                    );
+            }
+        }
+    );
 }
 
 // =====================================
@@ -421,64 +797,146 @@ audio.currentTime = Number(progress.value);
 // =====================================
 
 function createPlaylist() {
-if (!playlist) return;
 
-playlist.innerHTML = "";
+    if (!playlist) {
+        return;
+    }
 
-if (songCount) {
-songCount.textContent = ${songs.length} Songs;
-}
+    playlist.innerHTML = "";
 
-songs.forEach((song, index) => {
-const li = document.createElement("li");
+    if (songCount) {
 
-li.innerHTML = `
+        songCount.textContent =
+            `${songs.length} Songs`;
+    }
 
-            <i class="fa-solid fa-music"></i>
+    songs.forEach(
+        (song, index) => {
 
-            <span>
-                ${song.title || "Unknown Song"}
-                -
-                ${song.artist || "Unknown Artist"}
-            </span>
+            const li =
+                document.createElement("li");
 
-        `;
+            li.innerHTML = `
 
-li.addEventListener("click", () => {
-  currentSong = index;
+                <i class="fa-solid fa-music"></i>
 
-  loadSong(currentSong);
+                <span>
+                    ${song.title || "Unknown Song"}
+                    -
+                    ${song.artist || "Unknown Artist"}
+                </span>
 
-  playSong();
-});
+            `;
 
-playlist.appendChild(li);
+            li.addEventListener(
+                "click",
+                () => {
 
-});
+                    currentSong = index;
+
+                    loadSong(currentSong);
+
+                    playSong();
+                }
+            );
+
+            playlist.appendChild(li);
+        }
+    );
 }
 
 // =====================================
-// AUDIO EVENTS
+// AUDIO PLAY EVENT
 // =====================================
 
-audio.addEventListener("play", () => {
-isPlaying = true;
+if (audio) {
 
-updateButton();
-});
+    audio.addEventListener(
+        "play",
+        () => {
 
-audio.addEventListener("pause", () => {
-isPlaying = false;
+            isPlaying = true;
 
-updateButton();
-});
+            updateButton();
 
-audio.addEventListener("ended", () => {
-nextSong();
-});
+            if (MediaSession) {
+
+                MediaSession
+                    .setPlaybackState({
+                        playbackState:
+                            "playing"
+                    })
+                    .catch(() => {});
+            }
+        }
+    );
+
+    // =================================
+    // AUDIO PAUSE EVENT
+    // =================================
+
+    audio.addEventListener(
+        "pause",
+        () => {
+
+            isPlaying = false;
+
+            updateButton();
+
+            if (MediaSession) {
+
+                MediaSession
+                    .setPlaybackState({
+                        playbackState:
+                            "paused"
+                    })
+                    .catch(() => {});
+            }
+        }
+    );
+
+    // =================================
+    // AUDIO ENDED
+    // =================================
+
+    audio.addEventListener(
+        "ended",
+        () => {
+
+            nextSong();
+        }
+    );
+
+    // =================================
+    // AUDIO ERROR
+    // =================================
+
+    audio.addEventListener(
+        "error",
+        (event) => {
+
+            console.error(
+                "Audio loading error:",
+                event
+            );
+
+            console.error(
+                "Audio source:",
+                audio.src
+            );
+        }
+    );
+}
 
 // =====================================
 // START
 // =====================================
 
+console.log(
+    "Music Player JS loaded"
+);
+
+setupMediaSession();
+
 loadSongs();
+
