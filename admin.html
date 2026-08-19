@@ -3,69 +3,291 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+
+  <meta name="theme-color" content="#09090d" />
+
   <title>Music Player — Admin</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <link rel="stylesheet" href="admin.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="admin.css" />
 </head>
 
 <body>
+
   <div id="app" class="app">
 
-    <!-- DASHBOARD STATE -->
-    <div id="dashboard" class="dashboard">
-      <header class="header">
-        <div class="title">Music Player Admin</div>
-        <div class="header-actions">
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          <i class="fa-solid fa-music"></i>
         </div>
-      </header>
 
-      <main class="main">
-        <section class="summary">
-          <div class="card stat" id="card-total-songs">
+        <div>
+          <div class="title">Music Player</div>
+          <div class="subtitle">Admin Panel</div>
+        </div>
+
+      </div>
+
+      <button
+        id="btn-header-refresh"
+        class="icon-btn"
+        type="button"
+        aria-label="Refresh"
+      >
+        <i class="fa-solid fa-rotate"></i>
+      </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         DASHBOARD
+    ====================================================== -->
+
+    <main class="main">
+
+      <!-- Stats -->
+
+      <section class="summary">
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            <i class="fa-solid fa-music"></i>
+          </div>
+
+          <div>
             <div class="stat-title">Total Songs</div>
-            <div class="stat-value" id="total-songs">—</div>
+            <div id="total-songs" class="stat-value">—</div>
           </div>
 
-          <div class="card stat" id="card-recent">
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+
+          <div>
             <div class="stat-title">Recently Added</div>
-            <div class="stat-value" id="recent-list">—</div>
-          </div>
-
-          <div class="card actions">
-            <div class="stat-title">Quick Actions</div>
-            <div class="action-buttons">
-              <button id="btn-add-song" class="btn primary">Add Song</button>
-              <button id="btn-manage-songs" class="btn">Manage Songs</button>
-              <button id="btn-refresh" class="btn">Refresh</button>
-            </div>
-          </div>
-        </section>
-
-        <section class="manage">
-          <div class="manage-header">
-            <h2>Song Library</h2>
-            <div class="manage-controls">
-              <input id="search" placeholder="Search title, artist, album" aria-label="Search songs" />
-              <button id="refresh-songs" class="btn">Refresh</button>
+            <div id="recent-list" class="stat-value recent-value">
+              —
             </div>
           </div>
 
-          <div id="songs-container" class="songs"></div>
+        </div>
 
-          <div id="empty-state" class="card empty hidden">No songs found.</div>
-        </section>
-      </main>
-    </div>
+      </section>
 
-    <!-- Modals -->
+
+      <!-- ===================================================
+           QUICK ACTIONS
+      ==================================================== -->
+
+      <section class="quick-actions">
+
+        <button
+          id="btn-add-song"
+          class="action-btn primary"
+          type="button"
+        >
+          <i class="fa-solid fa-plus"></i>
+          <span>Add Song</span>
+        </button>
+
+        <button
+          id="btn-manage-songs"
+          class="action-btn"
+          type="button"
+        >
+          <i class="fa-solid fa-list"></i>
+          <span>Manage Songs</span>
+        </button>
+
+        <button
+          id="btn-refresh"
+          class="action-btn"
+          type="button"
+        >
+          <i class="fa-solid fa-rotate"></i>
+          <span>Refresh</span>
+        </button>
+
+      </section>
+
+
+      <!-- ===================================================
+           SONG LIBRARY
+      ==================================================== -->
+
+      <section class="manage">
+
+        <div class="manage-header">
+
+          <div>
+
+            <h2>
+              <i class="fa-solid fa-layer-group"></i>
+              Song Library
+            </h2>
+
+            <div id="library-count" class="library-count">
+              0 songs
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Search -->
+
+        <div class="search-box">
+
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            id="search"
+            type="search"
+            placeholder="Search title, artist or album"
+            autocomplete="off"
+          />
+
+          <button
+            id="clear-search"
+            class="clear-search hidden"
+            type="button"
+            aria-label="Clear search"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+
+        </div>
+
+
+        <!-- Filters -->
+
+        <div class="filter-row">
+
+          <button
+            class="filter-btn active"
+            data-sort="newest"
+            type="button"
+          >
+            <i class="fa-solid fa-clock"></i>
+            Newest
+          </button>
+
+          <button
+            class="filter-btn"
+            data-sort="oldest"
+            type="button"
+          >
+            <i class="fa-solid fa-arrow-down-1-9"></i>
+            Oldest
+          </button>
+
+          <button
+            class="filter-btn"
+            data-sort="az"
+            type="button"
+          >
+            A-Z
+          </button>
+
+          <button
+            class="filter-btn"
+            data-sort="za"
+            type="button"
+          >
+            Z-A
+          </button>
+
+        </div>
+
+
+        <!-- Songs -->
+
+        <div id="songs-container" class="songs"></div>
+
+
+        <!-- Empty -->
+
+        <div
+          id="empty-state"
+          class="empty hidden"
+        >
+          <i class="fa-solid fa-music"></i>
+
+          <h3>No songs found</h3>
+
+          <p>
+            Try another search or add a new song.
+          </p>
+
+          <button
+            id="empty-add-song"
+            class="btn primary"
+            type="button"
+          >
+            <i class="fa-solid fa-plus"></i>
+            Add Song
+          </button>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         MODAL ROOT
+    ====================================================== -->
+
     <div id="modal-root"></div>
 
-    <!-- Toasts -->
-    <div id="toasts" aria-live="polite" class="toasts"></div>
+
+    <!-- =====================================================
+         TOASTS
+    ====================================================== -->
+
+    <div
+      id="toasts"
+      class="toasts"
+      aria-live="polite"
+    ></div>
+
+
+    <!-- =====================================================
+         AUDIO PREVIEW
+    ====================================================== -->
+
+    <audio id="preview-audio" preload="metadata"></audio>
+
   </div>
 
+
   <script src="admin.js" defer></script>
+
 </body>
 
 </html>

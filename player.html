@@ -2,78 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Now Playing | Music Player</title>
     <link rel="stylesheet" href="player.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
 </head>
-
 <body>
 
-    <!-- =========================
-         NAVBAR
-    ========================== -->
+    <main class="player">
 
-    <header class="navbar">
-        <a href="index.html" class="logo">
-            <i class="fa-solid fa-music"></i>
-            <span>Music Player</span>
-        </a>
+        <!-- TOP BAR -->
+        <header class="player-topbar">
 
-        <a href="index.html" class="back-btn">
-            <i class="fa-solid fa-arrow-left"></i>
-            <span>Home</span>
-        </a>
+            <a href="index.html" class="top-btn" aria-label="Back">
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
 
-    </header>
-
-    <!-- =========================
-         PLAYER PAGE
-    ========================== -->
-
-    <main class="player-page">
-        <section class="player-card">
-
-            <!-- NOW PLAYING -->
-
-            <div class="now-playing">
-                <span>
-                    NOW PLAYING
-                </span>
+            <div class="top-title">
+                NOW PLAYING
             </div>
 
-            <!-- ALBUM ART -->
+            <button class="top-btn" id="moreBtn" aria-label="More options">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
 
-            <div class="album-container">
-                <div class="album-glow"></div>
-                <img id="cover" src="assets/images/cover8.jpg" alt="Album Cover" class="album-cover">
+        </header>
+
+
+        <!-- COVER -->
+        <section class="cover-section">
+
+            <div class="cover-wrapper">
+
+                <div class="cover-glow"></div>
+
+                <img id="cover" src="assets/images/cover8.jpg" alt="Album Cover" class="cover">
+
             </div>
 
-            <!-- SONG DETAILS -->
+        </section>
 
-            <div class="song-info">
+
+        <!-- SONG INFORMATION -->
+        <section class="song-section">
+
+            <div class="song-text">
+
                 <h1 id="title">
                     Melody Song
                 </h1>
+
                 <p id="artist">
                     Anirudh Ravichander
                 </p>
+
             </div>
 
 
+            <div class="song-actions">
 
-            <!-- AUDIO -->
+                <button id="downloadBtn" class="action-btn" aria-label="Download">
+                    <i class="fa-solid fa-download"></i>
+                </button>
 
-            <audio id="audio"></audio>
+                <button id="favoriteBtn" class="action-btn" aria-label="Favorite">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
 
-            <!-- PROGRESS -->
+            </div>
 
-            <div class="progress-container">
+        </section>
+
+
+        <!-- AUDIO -->
+        <audio id="audio" preload="metadata"></audio>
+
+
+        <!-- PROGRESS -->
+        <section class="progress-section">
+
+            <input type="range" id="progress" min="0" max="100" value="0" step="0.1">
+
+            <div class="time-row">
+
                 <span id="current">
                     0:00
                 </span>
-
-                <input type="range" id="progress" value="0" min="0" step="0.1">
 
                 <span id="duration">
                     0:00
@@ -81,123 +96,88 @@
 
             </div>
 
-            <!-- CONTROLS -->
-
-            <div class="controls">
-                <button id="prev" aria-label="Previous Song">
-                    <i class="fa-solid fa-backward-step"></i>
-                </button>
+        </section>
 
 
-                <button id="play" class="main-play" aria-label="Play Song">
-                    <i id="playIcon" class="fa-solid fa-play"></i>
-                </button>
+        <!-- CONTROLS -->
+        <section class="controls">
+
+            <button id="shuffle" class="control-btn secondary" aria-label="Shuffle">
+                <i class="fa-solid fa-shuffle"></i>
+            </button>
 
 
-                <button id="next" aria-label="Next Song">
-                    <i class="fa-solid fa-forward-step"></i>
+            <button id="prev" class="control-btn" aria-label="Previous">
+                <i class="fa-solid fa-backward-step"></i>
+            </button>
+
+
+            <button id="play" class="play-btn" aria-label="Play">
+                <i id="playIcon" class="fa-solid fa-play"></i>
+            </button>
+
+
+            <button id="next" class="control-btn" aria-label="Next">
+                <i class="fa-solid fa-forward-step"></i>
+            </button>
+
+
+            <button id="playlistBtn" class="control-btn secondary" aria-label="Playlist">
+                <i class="fa-solid fa-list"></i>
+            </button>
+
+        </section>
+
+
+        <!-- PLAYLIST -->
+        <section class="playlist-panel" id="playlistPanel">
+
+            <div class="playlist-header">
+
+                <div>
+                    <span>YOUR MUSIC</span>
+
+                    <h2>
+                        Playlist
+                    </h2>
+                </div>
+
+                <button id="closePlaylist" aria-label="Close playlist">
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
 
             </div>
 
+            <div class="playlist-count">
+                <span id="songCount">0 Songs</span>
+            </div>
 
-
-            <!-- PLAYLIST -->
-
-            <section class="playlist-section">
-                <div class="playlist-heading">
-                    <div>
-                        <span>
-                            YOUR MUSIC
-                        </span>
-
-                        <h2>
-                            <i class="fa-solid fa-list"></i>
-                            Playlist
-                        </h2>
-
-                    </div>
-
-                    <span id="songCount">
-                        0 Songs
-                    </span>
-
-                </div>
-
-
-                <ul id="playlist" class="playlist"></ul>
-
-            </section>
-
+            <ul id="playlist" class="playlist"></ul>
 
         </section>
 
     </main>
 
 
+    <!-- MORE MENU -->
+    <div class="more-menu" id="moreMenu">
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
+        <button id="closeMore">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
 
-    <footer>
+        <button>
+            <i class="fa-solid fa-circle-info"></i>
+            Song information
+        </button>
 
-        <div class="footer-logo">
+        <button>
+            <i class="fa-solid fa-share-nodes"></i>
+            Share
+        </button>
 
-            <i class="fa-solid fa-music"></i>
+    </div>
 
-            <span>
-                Music Player
-            </span>
-
-        </div>
-
-
-        <p>
-            Your music. Your mood. Your beat.
-        </p>
-
-
-        <div class="footer-line"></div>
-
-
-        <p class="copyright">
-
-            © 2026 Music Player
-
-            <span>•</span>
-
-            Designed & Developed by
-            <strong>SATHISH S</strong>
-
-        </p>
-
-
-
-    </footer>
-
-    <!-- =================================
-         MOBILE BOTTOM NAVIGATION
-    ================================== -->
-
-    <nav class="mobile-nav" aria-label="Mobile navigation">
-
-        <a href="index.html" class="mobile-nav-item" aria-label="Home">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
-
-        <a href="search.html" class="mobile-nav-item mobile-nav-center" aria-label="Music">
-            <i class="fa-solid fa-music"></i>
-            <span>Music</span>
-        </a>
-
-        <a href="#" class="mobile-nav-item" aria-label="Profile">
-            <i class="fa-solid fa-user"></i>
-            <span>Profile</span>
-        </a>
-
-    </nav>
 
     <script src="player.js"></script>
 
