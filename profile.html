@@ -1,18 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>profile</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Profile | Music Player</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="profile.css">
 </head>
-<style>
-  body{
-    background-color: black;
-    text-align: center;
-  }
-</style>
 
 <body>
-        <h1>Welcome to Music Player</h1>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="topbar">
+
+      <button class="icon-btn" id="backBtn" aria-label="Go back">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <h1>Profile</h1>
+
+      <button class="icon-btn" id="settingsBtn" aria-label="Settings">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+
+    </header>
+
+
+    <!-- PROFILE -->
+    <main>
+
+      <section class="profile-section">
+
+        <div class="avatar">
+          <i class="fa-solid fa-user"></i>
+        </div>
+
+        <h2 id="profileName">Music Lover</h2>
+
+        <p id="profileEmail">
+          musicplayer@example.com
+        </p>
+
+        <button class="edit-btn" id="editProfileBtn">
+          <i class="fa-solid fa-pen"></i>
+          Edit Profile
+        </button>
+
+      </section>
+
+
+      <!-- STATS -->
+      <section class="stats">
+
+        <div class="stat-card">
+
+          <i class="fa-solid fa-music"></i>
+
+          <strong id="totalSongs">
+            0
+          </strong>
+
+          <span>
+            Songs
+          </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <i class="fa-solid fa-heart"></i>
+
+          <strong id="favoriteCount">
+            0
+          </strong>
+
+          <span>
+            Favorites
+          </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <i class="fa-solid fa-clock-rotate-left"></i>
+
+          <strong id="recentCount">
+            0
+          </strong>
+
+          <span>
+            Recent
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- MENU -->
+      <section class="menu-section">
+
+        <button class="menu-item" id="favoritesBtn">
+
+          <div class="menu-icon">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+
+          <div class="menu-content">
+
+            <strong>
+              Favorites
+            </strong>
+
+            <span>
+              Your liked songs
+            </span>
+
+          </div>
+
+          <i class="fa-solid fa-chevron-right arrow"></i>
+
+        </button>
+
+
+        <button class="menu-item" id="recentBtn">
+
+          <div class="menu-icon">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+
+          <div class="menu-content">
+
+            <strong>
+              Recently Played
+            </strong>
+
+            <span>
+              Listen again
+            </span>
+
+          </div>
+
+          <i class="fa-solid fa-chevron-right arrow"></i>
+
+        </button>
+
+
+        <button class="menu-item" id="settingsMenuBtn">
+
+          <div class="menu-icon">
+            <i class="fa-solid fa-sliders"></i>
+          </div>
+
+          <div class="menu-content">
+
+            <strong>
+              Settings
+            </strong>
+
+            <span>
+              App preferences
+            </span>
+
+          </div>
+
+          <i class="fa-solid fa-chevron-right arrow"></i>
+
+        </button>
+
+
+        <button class="menu-item" id="aboutBtn">
+
+          <div class="menu-icon">
+            <i class="fa-solid fa-circle-info"></i>
+          </div>
+
+          <div class="menu-content">
+
+            <strong>
+              About
+            </strong>
+
+            <span>
+              Music Player
+            </span>
+
+          </div>
+
+          <i class="fa-solid fa-chevron-right arrow"></i>
+
+        </button>
+
+      </section>
+
+
+      <!-- LOGOUT -->
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+      </button>
+
+    </main>
+
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+
+      <button class="nav-item" id="homeNav">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </button>
+
+      <button class="nav-item" id="libraryNav">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Library</span>
+      </button>
+
+      <button class="nav-item active">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+      </button>
+
+    </nav>
+
+  </div>
+
+  <script src="profile.js"></script>
+
 </body>
+
 </html>

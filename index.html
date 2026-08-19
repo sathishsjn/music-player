@@ -2,74 +2,113 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
     <meta name="theme-color" content="#09090d">
+
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <title>Music Player</title>
+
     <link rel="stylesheet" href="style.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <link rel="icon" type="image/png" href="assets/images/logo.png">
+
 </head>
 
+
 <body>
-    <!-- =================================
-         NAVBAR
-    ================================== -->
 
-    <header class="navbar">
+    <!-- =========================================
+         APP HEADER
+    ========================================== -->
 
-        <div class="logo">
+    <header class="app-header">
 
-            <div class="logo-icon">
+        <div class="brand">
+
+            <div class="brand-icon">
                 <i class="fa-solid fa-music"></i>
             </div>
 
-            <span>Music Player</span>
+            <div class="brand-text">
+
+                <strong>Music Player</strong>
+
+                <span>Your music. Your mood.</span>
+
+            </div>
 
         </div>
 
+
+        <a class="install-btn" href="https://musicplayerapk.netlify.app/app-debug.apk" target="_blank"
+            rel="noopener noreferrer">
+
+            <i class="fa-solid fa-download"></i>
+
+            <span>Install</span>
+
+        </a>
+
+    </header>
+
+
+    <!-- =========================================
+         SEARCH
+    ========================================== -->
+
+    <section class="search-section">
 
         <div class="search-box">
 
             <i class="fa-solid fa-magnifying-glass"></i>
 
-            <input type="text" id="search" placeholder="Search songs..." autocomplete="off">
+            <input type="text" id="search" placeholder="Search songs or artists..." autocomplete="off"
+                spellcheck="false">
+
+            <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
 
         </div>
 
-        <a href="https://musicplayerapk.netlify.app/app-debug.apk" target="_blank">Install</a>
-
-    </header>
+    </section>
 
 
+    <!-- =========================================
+         HERO / QUICK PLAY
+    ========================================== -->
 
-    <!-- =================================
-         HERO
-    ================================== -->
+    <section class="welcome-card">
 
-    <section class="hero">
+        <div class="welcome-content">
 
-        <div class="hero-content">
-
-            <span class="hero-tag">
-                YOUR MUSIC • YOUR MOOD
+            <span class="welcome-label">
+                YOUR MUSIC • YOUR MOMENTS
             </span>
 
-
             <h1>
-                Feel Every
-                <span>Beat.</span>
+                Feel every
+                <span>beat.</span>
             </h1>
 
-
             <p>
-                Listen to your favorite songs anytime,
-                anywhere with a simple and beautiful
-                music experience.
+                Your favorite songs, always ready to play.
             </p>
 
-
-            <button class="hero-play" id="heroPlay">
+            <button id="heroPlay" class="hero-play" type="button">
 
                 <i class="fa-solid fa-play"></i>
 
@@ -80,16 +119,12 @@
         </div>
 
 
-        <div class="hero-art">
+        <div class="hero-vinyl">
 
-            <div class="vinyl">
+            <div class="vinyl-disc">
 
-                <div class="vinyl-line"></div>
-
-                <div class="vinyl-center">
-
+                <div class="vinyl-label">
                     <i class="fa-solid fa-music"></i>
-
                 </div>
 
             </div>
@@ -99,152 +134,90 @@
     </section>
 
 
-
-    <!-- =================================
+    <!-- =========================================
          MAIN CONTENT
-    ================================== -->
+    ========================================== -->
 
-    <main>
+    <main class="app-main">
 
 
-        <!-- =================================
-             TRENDING SONGS
-        ================================== -->
+        <!-- =====================================
+             SECTION HEADER
+        ====================================== -->
 
-        <section class="songs-section">
+        <div class="section-title">
 
-            <div class="section-heading">
+            <div>
 
-                <div>
+                <span>LISTEN NOW</span>
 
-                    <span>LISTEN NOW</span>
-
-                    <h2>
-                        🔥 Trending Songs
-                    </h2>
-
-                </div>
+                <h2>
+                    <i class="fa-solid fa-fire"></i>
+                    Trending Songs
+                </h2>
 
             </div>
 
+            <span id="songTotal" class="song-total">
+                0 songs
+            </span>
 
-            <div class="song-grid" id="songGrid">
-
-                <div class="loading">
-
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-
-                    <span>Loading songs...</span>
-
-                </div>
-
-            </div>
-
-        </section>
+        </div>
 
 
+        <!-- =====================================
+             SONG GRID
+        ====================================== -->
 
-        <!-- =================================
-             MUSIC PLAYER
-        ================================== -->
+        <section id="songGrid" class="song-grid" aria-label="Songs">
 
-        <section class="player-section">
+            <div class="loading">
 
-            <div class="player">
+                <i class="fa-solid fa-spinner fa-spin"></i>
 
-
-                <!-- Current Song -->
-
-                <div class="player-song">
-
-                    <img id="cover" src="assets/images/cover8.jpg" alt="Song Cover">
-
-
-                    <div class="song-details">
-
-                        <h3 id="title">
-                            Select a song
-                        </h3>
-
-                        <p id="artist">
-                            Unknown Artist
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Controls -->
-
-                <div class="player-controls">
-
-                    <button id="prev" aria-label="Previous song">
-
-                        <i class="fa-solid fa-backward-step"></i>
-
-                    </button>
-
-
-                    <button id="play" class="main-play" aria-label="Play or pause">
-
-                        <i id="playIcon" class="fa-solid fa-play"></i>
-
-                    </button>
-
-
-                    <button id="next" aria-label="Next song">
-
-                        <i class="fa-solid fa-forward-step"></i>
-
-                    </button>
-
-                </div>
-
-
-
-                <!-- Progress -->
-
-                <div class="progress-area">
-
-                    <span id="current">
-                        0:00
-                    </span>
-
-
-                    <input type="range" id="progress" min="0" max="100" value="0" step="0.1">
-
-
-                    <span id="duration">
-                        0:00
-                    </span>
-
-                </div>
-
-
-                <audio id="audio"></audio>
+                <span>Loading songs...</span>
 
             </div>
 
         </section>
 
 
+        <!-- =====================================
+             EMPTY SEARCH
+        ====================================== -->
 
-        <!-- =================================
+        <div id="noResults" class="no-results" hidden>
+
+            <div class="no-results-icon">
+
+                <i class="fa-solid fa-music"></i>
+
+            </div>
+
+            <h3>No songs found</h3>
+
+            <p>
+                Try another song or artist name.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================
              PLAYLIST
-        ================================== -->
+        ====================================== -->
 
-        <section class="playlist-section">
+        <section class="library-section">
 
-            <div class="section-heading">
+            <div class="section-title">
 
                 <div>
 
                     <span>YOUR LIBRARY</span>
 
                     <h2>
-                        🎵 Playlist
+                        <i class="fa-solid fa-list"></i>
+                        Playlist
                     </h2>
 
                 </div>
@@ -256,125 +229,142 @@
 
         </section>
 
+
     </main>
 
 
+    <!-- =========================================
+         MINI MUSIC PLAYER
+    ========================================== -->
 
-    <!-- =================================
-         FOOTER
-    ================================== -->
+    <section id="playerSection" class="player-section" aria-label="Music player">
 
-    <footer class="footer">
+        <div class="mini-player">
 
-        <div class="footer-wrapper">
 
-            <!-- Column 1: Brand -->
-            <div class="footer-column footer-brand-col">
-                <div class="footer-logo">
-                    <div class="footer-logo-icon">
-                        <i class="fa-solid fa-music"></i>
-                    </div>
-                    <span>Music Player</span>
+            <!-- Song -->
+
+            <div id="playerSong" class="mini-song">
+
+                <img id="cover" src="assets/images/cover8.jpg" alt="Song cover">
+
+                <div class="mini-song-info">
+
+                    <h3 id="title">
+                        Select a song
+                    </h3>
+
+                    <p id="artist">
+                        Unknown Artist
+                    </p>
+
                 </div>
-                <p class="footer-tagline">Your music. Your mood. Your moments.</p>
+
             </div>
 
-            <!-- Column 2: Music Navigation -->
-            <div class="footer-column footer-nav-col">
-                <h4 class="footer-heading">Music</h4>
-                <ul class="footer-links">
-                    <li><a href="#trending">Trending Songs</a></li>
-                    <li><a href="#playlist">Your Playlist</a></li>
-                    <li><a href="upload.html">Upload Music</a></li>
-                </ul>
+
+            <!-- Controls -->
+
+            <div class="mini-controls">
+
+                <button id="prev" type="button" aria-label="Previous song">
+
+                    <i class="fa-solid fa-backward-step"></i>
+
+                </button>
+
+
+                <button id="play" class="main-play" type="button" aria-label="Play or pause">
+
+                    <i id="playIcon" class="fa-solid fa-play"></i>
+
+                </button>
+
+
+                <button id="next" type="button" aria-label="Next song">
+
+                    <i class="fa-solid fa-forward-step"></i>
+
+                </button>
+
             </div>
 
-            <!-- Column 3: Support -->
-            <div class="footer-column footer-support-col">
-                <h4 class="footer-heading">Support</h4>
-                <ul class="footer-links">
-                    <li><a href="https://github.com/SathishSJn" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    </li>
-                    <li><a href="#" onclick="alert('Contact: sathishsjn@example.com'); return false;">Contact</a></li>
-                </ul>
+
+            <!-- Progress -->
+
+            <div class="progress-area">
+
+                <span id="current">
+                    0:00
+                </span>
+
+                <input type="range" id="progress" min="0" max="100" value="0" step="0.1" aria-label="Song progress">
+
+                <span id="duration">
+                    0:00
+                </span>
+
             </div>
 
-            <!-- Column 4: Social Media -->
-            <div class="footer-column footer-social-col">
-                <h4 class="footer-heading">Connect</h4>
-                <div class="social-icons">
-                    <a href="https://github.com/SathishSJn" target="_blank" rel="noopener noreferrer"
-                        aria-label="GitHub" class="social-icon">
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="https://www.youtube.com/channel/UCG8b2rL5Xwh5LKFMSxL7mQA" target="_blank"
-                        rel="noopener noreferrer" aria-label="YouTube" class="social-icon">
-                        <i class="fa-brands fa-youtube"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/sathishsj/" target="_blank" rel="noopener noreferrer"
-                        aria-label="LinkedIn" class="social-icon">
-                        <i class="fa-brands fa-linkedin"></i>
-                    </a>
-                    <a href="https://www.instagram.com/alone_boy_sathish_108/" target="_blank" rel="noopener noreferrer"
-                        aria-label="Instagram" class="social-icon">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
+
+            <!-- Open Full Player -->
+
+            <button id="openPlayer" class="open-player" type="button" aria-label="Open full player">
+
+                <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+
+            </button>
 
         </div>
 
-        <!-- Creator Section -->
-        <div class="footer-divider"></div>
-
-        <div class="footer-creator">
-            <div class="creator-text">
-                Devloped <span class="footer-heart">♫</span> by
-                <a class="creator-name">Sathish</aclass=>
-            </div>
-        </div>
-
-        <!-- Copyright -->
-        <div class="footer-divider"></div>
-
-        <div class="footer-bottom">
-            <div class="copyright">
-                <span>© 2026 Music Player</span>
-                <span class="separator">•</span>
-                <span>Made with ♫ by Sathish</span>
-            </div>
-        </div>
-
-    </footer>
+    </section>
 
 
+    <!-- =========================================
+         AUDIO
+    ========================================== -->
 
-    <!-- =================================
+    <audio id="audio" preload="metadata"></audio>
+
+
+    <!-- =========================================
          MOBILE BOTTOM NAVIGATION
-    ================================== -->
+    ========================================== -->
 
     <nav class="mobile-nav" aria-label="Mobile navigation">
 
-        <a href="index.html" class="mobile-nav-item" aria-label="Home">
+        <a href="index.html" class="mobile-nav-item active">
+
             <i class="fa-solid fa-house"></i>
+
             <span>Home</span>
+
         </a>
 
-        <a href="search.html" class="mobile-nav-item mobile-nav-center" aria-label="Music">
+
+        <a href="search.html" class="mobile-nav-item mobile-nav-center">
+
             <i class="fa-solid fa-magnifying-glass"></i>
+
             <span>Search</span>
+
         </a>
 
-        <a href="profile.html" class="mobile-nav-item" aria-label="Profile">
+
+        <a href="profile.html" class="mobile-nav-item">
+
             <i class="fa-solid fa-user"></i>
+
             <span>Profile</span>
+
         </a>
 
     </nav>
 
-    <!-- =================================
+
+    <!-- =========================================
          JAVASCRIPT
-    ================================== -->
+    ========================================== -->
 
     <script src="script.js"></script>
 
