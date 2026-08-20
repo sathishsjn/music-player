@@ -1743,3 +1743,152 @@ document.addEventListener(
     loadSongs();
   }
 );
+
+
+/* =========================================================
+   MINI PLAYER -> FULL PLAYER
+========================================================= */
+
+const playerSong = document.getElementById("playerSong");
+const openPlayerBtn = document.getElementById("openPlayer");
+
+/* =========================================================
+   OPEN CURRENT SONG - PROFESSIONAL TRANSITION
+========================================================= */
+
+function openCurrentSongInPlayer() {
+
+  if (
+    !Array.isArray(songs) ||
+    songs.length === 0 ||
+    !songs[currentSong]
+  ) {
+    return;
+  }
+
+  const song = songs[currentSong];
+
+  /*
+   * Save current playback state
+   */
+  savePlaybackPosition();
+
+  try {
+
+    localStorage.setItem(
+      "selectedSong",
+      JSON.stringify(song)
+    );
+
+    localStorage.setItem(
+      "currentSongIndex",
+      String(currentSong)
+    );
+
+    localStorage.setItem(
+      "allSongs",
+      JSON.stringify(songs)
+    );
+
+    localStorage.setItem(
+      "playerAutoPlay",
+      isPlaying ? "true" : "false"
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Unable to save player state:",
+      error
+    );
+
+  }
+
+
+  /*
+   * Add exit animation
+   */
+  document.body.classList.add(
+    "player-opening"
+  );
+
+
+  const playerUrl =
+    song.id !== undefined &&
+    song.id !== null
+      ? `player.html?id=${encodeURIComponent(song.id)}`
+      : "player.html";
+
+
+  /*
+   * Use View Transition API
+   * when browser supports it
+   */
+
+  if (
+    document.startViewTransition
+  ) {
+
+    document.startViewTransition(
+      () => {
+        window.location.href =
+          playerUrl;
+      }
+    );
+
+  } else {
+
+    /*
+     * Fallback animation
+     */
+
+    setTimeout(() => {
+
+      window.location.href =
+        playerUrl;
+
+    }, 260);
+
+  }
+
+}
+
+
+/* =========================================================
+   CLICK SONG INFO / COVER
+========================================================= */
+
+if (playerSong) {
+
+  playerSong.addEventListener(
+    "click",
+    (event) => {
+
+      event.stopPropagation();
+
+      openCurrentSongInPlayer();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   CLICK EXPAND BUTTON
+========================================================= */
+
+if (openPlayerBtn) {
+
+  openPlayerBtn.addEventListener(
+    "click",
+    (event) => {
+
+      event.stopPropagation();
+
+      openCurrentSongInPlayer();
+
+    }
+  );
+
+}

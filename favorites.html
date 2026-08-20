@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Favorites | Music Player</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="favorites.css" />
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+</head>
+
+<body>
+
+  <main class="favorites-page">
+
+    <!-- HEADER -->
+    <header class="favorites-header">
+
+      <button class="back-btn" id="backBtn" aria-label="Go back">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+
+      <div class="header-info">
+        <h1>Favorites</h1>
+        <span id="favoriteCount">0 songs</span>
+      </div>
+
+    </header>
+
+
+    <!-- FAVORITES LIST -->
+    <section id="favoritesList" class="favorites-list"></section>
+
+
+    <!-- EMPTY STATE -->
+    <section id="emptyState" class="empty-state hidden">
+
+      <div class="empty-icon">
+        <i class="fa-regular fa-heart"></i>
+      </div>
+
+      <h2>No favorites yet</h2>
+
+      <p>
+        Songs you love will appear here.
+      </p>
+
+      <button id="browseSongs" class="browse-btn">
+        Browse Songs
+      </button>
+
+    </section>
+
+
+    <!-- MINI PLAYER -->
+    <div id="miniPlayer" class="mini-player hidden">
+
+      <img id="miniCover" src="assets/images/cover8.jpg" alt="Current song" />
+
+      <div class="mini-info">
+        <strong id="miniTitle">
+          No song playing
+        </strong>
+
+        <span id="miniArtist">
+          —
+        </span>
+      </div>
+
+      <button id="miniPlay" class="mini-play" aria-label="Play or pause">
+        <i id="miniPlayIcon" class="fa-solid fa-play"></i>
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <script src="favorites.js"></script>
+
+</body>
+
+</html>

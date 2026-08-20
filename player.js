@@ -303,16 +303,7 @@ function setupEventListeners() {
     }
 
 
-    /* DOWNLOAD */
 
-    if (downloadBtn) {
-
-        downloadBtn.addEventListener(
-            "click",
-            downloadCurrentSong
-        );
-
-    }
 
 
     /* PLAYLIST OPEN */
@@ -361,6 +352,24 @@ function setupEventListeners() {
         );
 
     }
+
+    /* =========================================================
+   PLAYER CLOSE
+========================================================= */
+
+const closePlayerBtn =
+    document.getElementById("closePlayerBtn");
+
+
+if (closePlayerBtn) {
+
+    closePlayerBtn.addEventListener(
+        "click",
+        closePlayer
+    );
+
+}
+
 
 
     /* LYRICS */
@@ -3151,6 +3160,76 @@ function showPlayerError(
         audio.load();
 
     }
+
+}
+
+
+/* =========================================================
+   CLOSE PLAYER WITH ANIMATION
+========================================================= */
+
+let isClosingPlayer = false;
+
+
+function closePlayer() {
+
+    /*
+       Prevent multiple clicks
+    */
+
+    if (isClosingPlayer) {
+
+        return;
+
+    }
+
+
+    isClosingPlayer = true;
+
+
+    /*
+       Add closing animation
+    */
+
+    document.body.classList.add(
+        "player-closing"
+    );
+
+
+    /*
+       Wait for animation
+       before going back
+    */
+
+    setTimeout(
+        () => {
+
+            /*
+               If this page was opened
+               from another page,
+               go back.
+            */
+
+            if (
+                window.history.length > 1
+            ) {
+
+                window.history.back();
+
+            } else {
+
+                /*
+                   Fallback
+                */
+
+                window.location.href =
+                    "index.html";
+
+            }
+
+        },
+        320
+    );
 
 }
 

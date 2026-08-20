@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Settings | Music Player</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="settings.css" />
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+</head>
+
+<body>
+
+  <div class="settings-app">
+
+    <!-- HEADER -->
+    <header class="settings-header">
+
+      <button class="back-btn" id="backBtn" aria-label="Go back">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <div class="header-title">
+        <h1>Settings</h1>
+        <p>Customize your music experience</p>
+      </div>
+
+    </header>
+
+
+    <!-- SETTINGS CONTENT -->
+    <main class="settings-content">
+
+
+      <!-- PLAYBACK -->
+      <section class="settings-section">
+
+        <h2>Playback</h2>
+
+        <div class="settings-card">
+
+          <!-- Autoplay -->
+          <div class="setting-item">
+
+            <div class="setting-icon">
+              <i class="fa-solid fa-play"></i>
+            </div>
+
+            <div class="setting-info">
+              <strong>Autoplay</strong>
+              <span>Automatically play the next song</span>
+            </div>
+
+            <label class="switch">
+              <input type="checkbox" id="autoplay" />
+              <span class="slider"></span>
+            </label>
+
+          </div>
+
+
+          <!-- Resume -->
+          <div class="setting-item">
+
+            <div class="setting-icon">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+
+            <div class="setting-info">
+              <strong>Resume Playback</strong>
+              <span>Continue from where you stopped</span>
+            </div>
+
+            <label class="switch">
+              <input type="checkbox" id="resumePlayback" />
+              <span class="slider"></span>
+            </label>
+
+          </div>
+
+
+          <!-- Remember Song -->
+          <div class="setting-item">
+
+            <div class="setting-icon">
+              <i class="fa-solid fa-music"></i>
+            </div>
+
+            <div class="setting-info">
+              <strong>Remember Last Song</strong>
+              <span>Open the last played song automatically</span>
+            </div>
+
+            <label class="switch">
+              <input type="checkbox" id="rememberSong" />
+              <span class="slider"></span>
+            </label>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- APPEARANCE -->
+      <section class="settings-section">
+
+        <h2>Appearance</h2>
+
+        <div class="settings-card">
+
+          <div class="setting-item">
+
+            <div class="setting-icon">
+              <i class="fa-solid fa-moon"></i>
+            </div>
+
+            <div class="setting-info">
+              <strong>Dark Mode</strong>
+              <span>Keep the dark music player theme</span>
+            </div>
+
+            <label class="switch">
+              <input type="checkbox" id="darkMode" checked />
+              <span class="slider"></span>
+            </label>
+
+          </div>
+
+
+          <div class="setting-item">
+
+            <div class="setting-icon">
+              <i class="fa-solid fa-mobile-screen"></i>
+            </div>
+
+            <div class="setting-info">
+              <strong>Compact Mode</strong>
+              <span>Use a more compact player layout</span>
+            </div>
+
+            <label class="switch">
+              <input type="checkbox" id="compactMode" />
+              <span class="slider"></span>
+            </label>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- DATA -->
+      <section class="settings-section">
+
+        <h2>Data & Storage</h2>
+
+        <div class="settings-card">
+
+          <button class="action-item" id="clearFavorites">
+
+            <div class="setting-icon">
+              <i class="fa-solid fa-heart"></i>
+            </div>
+
+            <div class="setting-info">
+              <strong>Clear Favorites</strong>
+              <span>Remove all saved favorite songs</span>
+            </div>
+
+            <i class="fa-solid fa-chevron-right arrow"></i>
+
+          </button>
+
+
+          <button class="action-item danger" id="clearPlayerData">
+
+            <div class="setting-icon">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+
+            <div class="setting-info">
+              <strong>Clear Player Data</strong>
+              <span>Remove saved playback information</span>
+            </div>
+
+            <i class="fa-solid fa-chevron-right arrow"></i>
+
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ABOUT -->
+      <section class="settings-section">
+
+        <h2>About</h2>
+
+        <div class="settings-card">
+
+          <div class="about-item">
+
+            <div class="app-logo">
+              <i class="fa-solid fa-music"></i>
+            </div>
+
+            <div>
+              <strong>Music Player</strong>
+              <span>Version 1.0.0</span>
+            </div>
+
+          </div>
+
+
+          <div class="about-row">
+
+            <span>App Version</span>
+
+            <span>1.0.0</span>
+
+          </div>
+
+
+          <div class="about-row">
+
+            <span>Made with</span>
+
+            <span>❤️</span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+    </main>
+
+
+    <!-- TOAST -->
+    <div id="toast" class="toast">
+      Settings updated
+    </div>
+
+  </div>
+
+
+  <script src="settings.js"></script>
+
+</body>
+
+</html>

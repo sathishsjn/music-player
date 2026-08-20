@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="icon" type="image/png" href="assets/images/logo.png">
 </head>
+
 <body>
 
     <main class="player">
@@ -15,9 +17,9 @@
         <!-- TOP BAR -->
         <header class="player-topbar">
 
-            <a href="index.html" class="top-btn" aria-label="Back">
+            <button type="button" class="top-btn" id="closePlayerBtn" aria-label="Close player">
                 <i class="fa-solid fa-chevron-down"></i>
-            </a>
+            </button>
 
             <div class="top-title">
                 NOW PLAYING
@@ -62,9 +64,7 @@
 
             <div class="song-actions">
 
-                <button id="downloadBtn" class="action-btn" aria-label="Download">
-                    <i class="fa-solid fa-download"></i>
-                </button>
+
 
                 <button id="favoriteBtn" class="action-btn" aria-label="Favorite">
                     <i class="fa-regular fa-heart"></i>

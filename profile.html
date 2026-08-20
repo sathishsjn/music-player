@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <link rel="stylesheet" href="profile.css">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
 </head>
 
 <body>
@@ -26,9 +27,6 @@
 
       <h1>Profile</h1>
 
-      <button class="icon-btn" id="settingsBtn" aria-label="Settings">
-        <i class="fa-solid fa-gear"></i>
-      </button>
 
     </header>
 
@@ -109,7 +107,7 @@
       <!-- MENU -->
       <section class="menu-section">
 
-        <button class="menu-item" id="favoritesBtn">
+        <a href="favorites.html" class="menu-item" id="favoritesBtn">
 
           <div class="menu-icon">
             <i class="fa-solid fa-heart"></i>
@@ -129,33 +127,13 @@
 
           <i class="fa-solid fa-chevron-right arrow"></i>
 
-        </button>
+        </a>
 
 
-        <button class="menu-item" id="recentBtn">
-
-          <div class="menu-icon">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-          </div>
-
-          <div class="menu-content">
-
-            <strong>
-             <a href="admin.html" Recently Played
-            </strong>
-
-            <span>
-              Listen again
-            </span>
-
-          </div>
-
-          <i class="fa-solid fa-chevron-right arrow"></i>
-
-        </button>
 
 
-        <button class="menu-item" id="settingsMenuBtn">
+
+        <a href="settings.html" class="menu-item" id="settingsMenuBtn">
 
           <div class="menu-icon">
             <i class="fa-solid fa-sliders"></i>
@@ -175,7 +153,7 @@
 
           <i class="fa-solid fa-chevron-right arrow"></i>
 
-        </button>
+        </a>
 
 
         <button class="menu-item" id="aboutBtn">
@@ -215,20 +193,20 @@
     <!-- BOTTOM NAV -->
     <nav class="bottom-nav">
 
-      <button class="nav-item" id="homeNav">
+      <a href="index.html" class="nav-item" id="homeNav">
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
-      </button>
+      </a>
 
-      <button class="nav-item" id="libraryNav">
-        <i class="fa-solid magnifying-glass"></i>
-        <span>Library>)))))</span>
-      </button>
+      <a href="search.html" class="nav-item" id="libraryNav">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>Search</span>
+      </a>
 
-      <button class="nav-item active">
+      <a href="profile.html" class="nav-item active">
         <i class="fa-solid fa-user"></i>
         <span>Profile</span>
-      </button>
+      </a>
 
     </nav>
 

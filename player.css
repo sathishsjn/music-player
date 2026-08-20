@@ -27,7 +27,7 @@ body {
   color: #ffffff;
 
   overflow-x: hidden;
-}
+
 
 /* =====================================================
    PLAYER
@@ -707,3 +707,214 @@ body {
     width: min(65vw, 360px);
   }
 }
+
+/* =========================================================
+   PROFESSIONAL PLAYER OPEN / CLOSE ANIMATION
+========================================================= */
+
+/* ---------------------------------------------------------
+   PAGE OPEN
+--------------------------------------------------------- */
+
+body {
+  animation:
+    playerPageEnter
+    420ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes playerPageEnter {
+
+  0% {
+    opacity: 0;
+    transform:
+      translateY(34px)
+      scale(0.965);
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* ---------------------------------------------------------
+   CLOSE STATE
+--------------------------------------------------------- */
+
+body.player-closing {
+  animation:
+    playerPageExit
+    320ms
+    cubic-bezier(0.4, 0, 1, 1)
+    forwards;
+
+  pointer-events: none;
+}
+
+
+@keyframes playerPageExit {
+
+  0% {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translateY(28px)
+      scale(0.965);
+  }
+}
+
+
+/* ---------------------------------------------------------
+   CONTENT MICRO ANIMATION
+--------------------------------------------------------- */
+
+body:not(.player-closing) .player-topbar {
+  animation:
+    playerContentEnter
+    420ms
+    80ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+
+body:not(.player-closing) .cover-section {
+  animation:
+    playerContentEnter
+    480ms
+    100ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+
+body:not(.player-closing) .song-section {
+  animation:
+    playerContentEnter
+    480ms
+    150ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+
+body:not(.player-closing) .progress-section {
+  animation:
+    playerContentEnter
+    480ms
+    190ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+
+body:not(.player-closing) .controls {
+  animation:
+    playerContentEnter
+    480ms
+    220ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+
+@keyframes playerContentEnter {
+
+  from {
+    opacity: 0;
+    transform:
+      translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0);
+  }
+}
+
+
+/* ---------------------------------------------------------
+   COVER PREMIUM EFFECT
+--------------------------------------------------------- */
+
+body:not(.player-closing) .cover-wrapper {
+  animation:
+    coverEnter
+    520ms
+    80ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+
+@keyframes coverEnter {
+
+  from {
+    opacity: 0;
+    transform:
+      scale(0.92)
+      translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      scale(1)
+      translateY(0);
+  }
+}
+
+
+/* ---------------------------------------------------------
+   CLOSE BUTTON PRESS
+--------------------------------------------------------- */
+
+#closePlayerBtn {
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
+}
+
+
+#closePlayerBtn:active {
+  transform: scale(0.82);
+  opacity: 0.65;
+}
+
+
+/* ---------------------------------------------------------
+   REDUCE MOTION ACCESSIBILITY
+--------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+  body,
+  body.player-closing,
+  .player-topbar,
+  .cover-section,
+  .song-section,
+  .progress-section,
+  .controls,
+  .cover-wrapper {
+    animation: none !important;
+  }
+
+}
+
+

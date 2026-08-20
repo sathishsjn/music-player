@@ -1,0 +1,471 @@
+:root {
+  --bg: #09090d;
+  --card: #16161d;
+  --card-hover: #1c1c24;
+  --text: #ffffff;
+  --muted: #a7a7b0;
+  --pink: #ff3158;
+  --border: rgba(255, 255, 255, 0.06);
+  --radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.favorites-page {
+  width: 100%;
+  max-width: 700px;
+  min-height: 100vh;
+  margin: 0 auto;
+
+  padding:
+    calc(env(safe-area-inset-top, 0px) + 18px)
+    16px
+    calc(env(safe-area-inset-bottom, 0px) + 100px);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.favorites-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.back-btn {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  border: 1px solid var(--border);
+  border-radius: 50%;
+
+  background: var(--card);
+  color: var(--text);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: transform 0.2s ease;
+}
+
+.back-btn:active {
+  transform: scale(0.92);
+}
+
+.header-info {
+  min-width: 0;
+}
+
+.header-info h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.header-info span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* =========================================================
+   FAVORITES LIST
+========================================================= */
+
+.favorites-list {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+/* =========================================================
+   FAVORITE CARD
+========================================================= */
+
+.favorite-card {
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 10px;
+
+  background: var(--card);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.favorite-card:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 768px) {
+  .favorite-card:hover {
+    background: var(--card-hover);
+  }
+}
+
+/* =========================================================
+   COVER
+========================================================= */
+
+.favorite-card .favorite-cover {
+  display: block;
+
+  width: 58px !important;
+  height: 58px !important;
+
+  min-width: 58px;
+  max-width: 58px;
+
+  min-height: 58px;
+  max-height: 58px;
+
+  flex: 0 0 58px;
+
+  object-fit: cover;
+
+  border-radius: 11px;
+
+  background: #222;
+
+  aspect-ratio: 1 / 1;
+}
+
+/* =========================================================
+   SONG INFO
+========================================================= */
+
+.favorite-info {
+  flex: 1 1 auto;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.favorite-title {
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.favorite-artist {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+   FAVORITE BUTTON
+========================================================= */
+
+.favorite-btn {
+  width: 38px;
+  height: 38px;
+
+  min-width: 38px;
+
+  flex: 0 0 38px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: var(--pink);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  font-size: 17px;
+}
+
+.favorite-btn:active {
+  transform: scale(0.88);
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+  min-height: 60vh;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 30px;
+}
+
+.empty-icon {
+  width: 76px;
+  height: 76px;
+
+  border-radius: 50%;
+
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--pink);
+
+  font-size: 30px;
+
+  margin-bottom: 18px;
+}
+
+.empty-state h2 {
+  margin: 0 0 8px;
+  font-size: 19px;
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.browse-btn {
+  margin-top: 20px;
+
+  border: none;
+
+  background: var(--pink);
+  color: white;
+
+  padding: 11px 20px;
+
+  border-radius: 24px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   MINI PLAYER
+========================================================= */
+
+.mini-player {
+  position: fixed;
+
+  left: 50%;
+  bottom: 12px;
+
+  transform: translateX(-50%);
+
+  width: calc(100% - 24px);
+  max-width: 668px;
+
+  height: 64px;
+
+  padding: 7px 10px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  background: rgba(22, 22, 29, 0.96);
+
+  border: 1px solid var(--border);
+
+  border-radius: 16px;
+
+  backdrop-filter: blur(16px);
+
+  z-index: 100;
+}
+
+.mini-cover {
+  width: 48px;
+  height: 48px;
+
+  min-width: 48px;
+
+  object-fit: cover;
+
+  border-radius: 10px;
+}
+
+.mini-info {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.mini-info strong {
+  font-size: 13px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-info span {
+  color: var(--muted);
+
+  font-size: 11px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-play {
+  width: 42px;
+  height: 42px;
+
+  min-width: 42px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: var(--pink);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   HIDDEN
+========================================================= */
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .favorites-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .favorite-card {
+    gap: 10px;
+    padding: 8px;
+  }
+
+  .favorite-card .favorite-cover {
+    width: 52px !important;
+    height: 52px !important;
+
+    min-width: 52px;
+    max-width: 52px;
+
+    min-height: 52px;
+    max-height: 52px;
+
+    flex-basis: 52px;
+  }
+
+  .favorite-title {
+    font-size: 13px;
+  }
+
+  .favorite-artist {
+    font-size: 11px;
+  }
+
+  .favorite-btn {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    flex-basis: 34px;
+  }
+}
